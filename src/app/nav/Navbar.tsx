@@ -1,0 +1,30 @@
+import Container from "@/components/ui/Container";
+import NavigationMenu from "./NavigationMenu";
+import Image from "next/image";
+import Link from "next/link";
+import { SearchComponent } from "./SearchComponent";
+import { Search } from "lucide-react";
+
+const Navbar = () => {
+  return (
+    <section className=" h-[76px] border-b">
+      <Container>
+        <div className="flex items-center  justify-between py-5 ">
+          <Link href={"/"}>
+            <Image
+              src="https://res.cloudinary.com/dbrub0d6r/image/upload/v1739272263/logo2_2_o9stt8.png"
+              alt={"logo"}
+              width={50}
+              height={80}
+              className="h-[36px] cursor-pointer w-[81.28px]"
+            />
+          </Link>
+          <SearchComponent />
+          <NavigationMenu />
+        </div>
+      </Container>
+    </section>
+  );
+};
+
+export default Navbar;
