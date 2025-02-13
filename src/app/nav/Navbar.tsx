@@ -9,7 +9,7 @@ const Navbar = () => {
   return (
     <section className=" h-[76px] border-b">
       <Container>
-        <div className="flex items-center  justify-between py-5 ">
+        <div className="flex items-center justify-between py-5 ">
           <Link href={"/"}>
             <Image
               src="https://res.cloudinary.com/dbrub0d6r/image/upload/v1739272263/logo2_2_o9stt8.png"
