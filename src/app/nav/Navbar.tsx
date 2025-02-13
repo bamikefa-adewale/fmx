@@ -3,7 +3,7 @@ import NavigationMenu from "./NavigationMenu";
 import Image from "next/image";
 import Link from "next/link";
 import { SearchComponent } from "./SearchComponent";
-import { Search } from "lucide-react";
+import { ModeToggle } from "@/components/ModeToggle";
 
 const Navbar = () => {
   return (
@@ -21,6 +21,7 @@ const Navbar = () => {
           </Link>
           <SearchComponent />
           <NavigationMenu />
+          <ModeToggle />
         </div>
       </Container>
     </section>
