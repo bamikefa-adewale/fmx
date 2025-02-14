@@ -1,22 +1,15 @@
 "use client";
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import Image from "next/image";
 import React from "react";
 import { useTheme } from "next-themes";
 import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton component
 import Link from "next/link";
+import SelectedCard from "@/components/SelectedCard";
+import CustomBtn from "@/components/CustomBtn";
 
 type CardProps = {
-  id:number;
+  id: number;
   name: string;
   image: string;
   soldBy: string;
@@ -43,7 +36,7 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <Link
-      href={`/fruits/${id}`}
+      href={`/hero/${id}`}
       className={`rounded-xl w-[270px] border h-[480px] transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1A1A1A] border-gray-700 text-white"
@@ -98,36 +91,10 @@ const Card: React.FC<CardProps> = ({
             </p>
 
             {/* Select Input */}
-            <Select>
-              <SelectTrigger
-                className={`w-full mt-2 py-3 px-4 border h-[48px] rounded-lg transition-colors duration-300 ${
-                  isDarkMode
-                    ? "bg-[#2A2A2A] border-gray-600 text-white"
-                    : "border-gray-300 text-black"
-                }`}
-              >
-                <SelectValue placeholder="Payment Options" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectLabel>Choose Payment Option</SelectLabel>
-                  <SelectItem value="credit-card">Credit Card</SelectItem>
-                  <SelectItem value="paypal">PayPal</SelectItem>
-                  <SelectItem value="bank-transfer">Bank Transfer</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
+            <SelectedCard />
 
             {/* Add to Cart Button */}
-            <button
-              className={`mt-4 py-3 px-4 border h-[48px] rounded-lg w-full transition-all duration-300 ${
-                isDarkMode
-                  ? "text-[#4ADE80] border-[#4ADE80] hover:bg-[#4ADE80] hover:text-black"
-                  : "text-[#35AC0B] border-[#35AC0B] hover:bg-[#35AC0B] hover:text-white"
-              }`}
-            >
-              Add to Cart
-            </button>
+            <CustomBtn label="Add To Cart" />
 
             {/* Sold By */}
             <p className="text-sm mt-3">
