@@ -56,7 +56,7 @@ const CategoriesList = () => {
                         onClick={() => setActiveCategory(category)}
                       />
                     ))}
-              <div className="flex items-center gap-4">
+              <div className="flex items-center cursor-pointer gap-4">
                 <ChevronLeft
                   onClick={() => setStartIndex((prev) => Math.max(0, prev - 1))}
                 />

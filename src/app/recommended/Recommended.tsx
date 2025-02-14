@@ -1,9 +1,8 @@
 "use client";
-
-import Container from "@/components/ui/Container";
-import React, { useState, useEffect } from "react";
-import Heading from "../header/Heading";
+import React, { useEffect, useState } from "react";
 import { fruits } from "../constanct/Constant";
+import Container from "@/components/ui/Container";
+import Heading from "../header/Heading";
 import Card from "../constanct/Card";
 
 type Fruit = {
@@ -17,7 +16,7 @@ type Fruit = {
   markPrice: number;
 };
 
-const Hero: React.FC = () => {
+const Recommended = () => {
   const [visibleFruits, setVisibleFruits] = useState<number>(6);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -39,7 +38,7 @@ const Hero: React.FC = () => {
   return (
     <Container>
       <div className="flex justify-between items-center">
-        <Heading title="Special Offers" />
+        <Heading title="Recommended For You" />
         {visibleFruits < fruits.length && !loading && (
           <p
             className="cursor-pointer font-medium text-[#35AC0B] dark:text-white text-xl leading-[26px]"
@@ -59,7 +58,6 @@ const Hero: React.FC = () => {
                 name=""
                 image=""
                 location=""
-                id={0}
                 description=""
                 soldBy=""
                 currentPrice={0}
@@ -71,7 +69,6 @@ const Hero: React.FC = () => {
               .map((item: Fruit) => (
                 <Card
                   key={item.id}
-                  id={item.id}
                   name={item.name}
                   image={item.image}
                   location={item.location}
@@ -86,4 +83,4 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero;
+export default Recommended;
