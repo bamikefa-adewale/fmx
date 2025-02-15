@@ -25,7 +25,7 @@ const Footer = () => {
             </Link>
             <p className="text-lg my-10 font-[400] text-[#E6E8E6] poppins leading-[30px]">
               Fresh Market Exchange(FMX) Online Ordering Platform is your
-              premier destination for wholesale fresh produce in Japan. We're
+              premier destination for wholesale fresh produce in Japan. We are
               committed to your wholesale trading success and also giving you
               the best online shopping experience. Cheers!
             </p>
