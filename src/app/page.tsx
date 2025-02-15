@@ -4,7 +4,7 @@ import Recommended from "./recommended/Recommended";
 
 const Homepage = () => {
   return (
-    <div className="my-10">e
+    <div className="mb-10">
       <CategoriesList />
       <Hero />
       <Recommended />

@@ -7,7 +7,7 @@ import { ModeToggle } from "@/components/ModeToggle";
 
 const Navbar = () => {
   return (
-    <section className=" h-[76px] border-b">
+    <section className=" h-[76px] ">
       <Container>
         <div className="flex items-center justify-between py-5 ">
           <Link href={"/"}>
