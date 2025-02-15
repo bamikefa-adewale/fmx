@@ -53,6 +53,7 @@ const Recommended = () => {
         {loading
           ? Array.from({ length: visibleFruits }).map((_, index) => (
               <Card
+                id={0}
                 key={index}
                 isLoading={true}
                 name=""
@@ -68,6 +69,7 @@ const Recommended = () => {
               .slice(0, visibleFruits)
               .map((item: Fruit) => (
                 <Card
+                  id={item.id}
                   key={item.id}
                   name={item.name}
                   image={item.image}
