@@ -1,5 +1,4 @@
-"use client";
-
+"use client";         
 import Image from "next/image";
 import React from "react";
 import { useTheme } from "next-themes";
@@ -7,7 +6,6 @@ import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton componen
 import Link from "next/link";
 import SelectedCard from "@/components/SelectedCard";
 import CustomBtn from "@/components/CustomBtn";
-import { useRouter } from "next/navigation";
 // import { useRouter } from "next/router";
 
 type CardProps = {
@@ -33,7 +31,6 @@ const Card: React.FC<CardProps> = ({
   markPrice,
   isLoading = false, // Default to false
 }) => {
-  const router = useRouter();
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
 
@@ -98,12 +95,7 @@ const Card: React.FC<CardProps> = ({
 
             {/* Add to Cart Button */}
             <CustomBtn
-              label="Add To Cart"
-              onClick={(e) => {
-                e.stopPropagation(); // Prevents the click from triggering the Link navigation
-                e.preventDefault(); // Ensures it doesn't trigger unintended navigation
-                router.push("/cart");
-              }}
+              label="Add To Cart"  
             />
 
             {/* Sold By */}
