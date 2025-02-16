@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { createContext, useEffect, useState } from "react";
@@ -20,9 +21,7 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType>({
   carts: [],
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addToCart: (item: CartItem) => {},
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeFromCart: (id: number) => {},
   clearCart: () => {},
   totalItems: 0,
