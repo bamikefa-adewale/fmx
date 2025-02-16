@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
 import { createContext, useEffect, useState } from "react";
@@ -21,22 +20,34 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType>({
   carts: [],
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   addToCart: (item: CartItem) => {},
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   removeFromCart: (id: number) => {},
   clearCart: () => {},
   totalItems: 0,
 });
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const savedCart = localStorage.getItem("carts");
-  const [carts, setCarts] = useState<CartItem[] | []>(
-    savedCart ? JSON.parse(savedCart) : []
-  );
+  const [carts, setCarts] = useState<CartItem[]>([]);
+  // const savedCart = localStorage.getItem("carts");
+  // console.log("savedCart from useCart", savedCart);
+  // const [carts, setCarts] = useState<CartItem[] | []>(
+  //   savedCart ? JSON.parse(savedCart) : []
+  // );
 
-  // Save cart to localStorage whenever it changes
+  // Load cart from localStorage after component mounts
   useEffect(() => {
-    if (carts) {
-      localStorage.setItem("cart", JSON.stringify(carts));
+    const savedCart = localStorage.getItem("carts");
+    if (savedCart) {
+      setCarts(JSON.parse(savedCart));
+    }
+  }, []); // Runs only once when the component mounts
+
+  useEffect(() => {
+    // to save my cart to localStorage whenever cart change(user interact with cartbutton)
+    if (carts.length > 0) {
+      localStorage.setItem("carts", JSON.stringify(carts));
     }
   }, [carts]);
 
@@ -54,12 +65,24 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       setCarts([...carts, { ...item, quantity: 1 }]);
     }
   };
+
+  const removeFromCart = (id: number) => {
+    setCarts(carts.filter((item) => item.id !== id));
+  };
+
+  const clearCart = () => {
+    setCarts([]);
+  };
+
+  const totalItems = carts.reduce((total, item) => total + item.quantity, 0);
   return (
     <CartContext
       value={{
         carts,
         addToCart,
-        totalItems: 20,
+        removeFromCart,
+        clearCart,
+        totalItems,
       }}
     >
       {children}

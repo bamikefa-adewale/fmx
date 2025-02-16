@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import {
   MessageSquareText,
@@ -6,8 +7,11 @@ import {
   Bell,
   User,
 } from "lucide-react";
+import { useCart } from "../contexts/hook/useCart";
 
 const NavigationMenu = () => {
+  const { totalItems } = useCart();
+  console.log("checkingTotalItems", totalItems);
   // const { theme } = useTheme(); // Get the current theme
 
   return (
@@ -32,9 +36,14 @@ const NavigationMenu = () => {
         <li>
           <Link
             href="/cart"
-            className="flex items-center text-lg font-[400] dark:text-white gap-2"
+            className="flex items-center text-lg font-[400] dark:text-white gap-2 relative"
           >
             <ShoppingCart className="w-[24px] h-[24px]" /> Cart
+            {totalItems > 0 && (
+              <span className="absolute top-0 right-0 bg-red-500 text-white text-xs rounded-full px-2">
+                {totalItems}
+              </span>
+            )}
           </Link>
         </li>
         <li>

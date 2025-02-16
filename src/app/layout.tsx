@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "./nav/Navbar";
 import Footer from "./footer/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { CartProvider } from "./contexts/CartContext";
 
 const PoppinSans = Poppins({
   subsets: ["latin"],
@@ -21,23 +22,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${PoppinSans.className} transition-colors duration-300 bg-gray-100 dark:bg-gray-900 text-black dark:text-white`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+    <CartProvider>
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${PoppinSans.className} transition-colors duration-300 bg-gray-100 dark:bg-gray-900 text-black dark:text-white`}
         >
-          <div className="flex flex-col min-h-screen">
-            <Navbar />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
-        </ThemeProvider>
-      </body>
-    </html>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <div className="flex flex-col min-h-screen">
+              <Navbar />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </div>
+          </ThemeProvider>
+        </body>
+      </html>
+    </CartProvider>
   );
 }
