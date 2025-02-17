@@ -7,6 +7,8 @@ import Image from "next/image";
 import { CircleMinus, CirclePlus, CopyX } from "lucide-react";
 import { EmptyCart } from "./EmptyCart";
 import toast from "react-hot-toast";
+import { CheckoutDialog } from "@/app/cart/CheckoutDialog";
+import OrderSummary from "./OrderSummary";
 
 const CartPage = () => {
   const {
@@ -134,18 +136,14 @@ const CartPage = () => {
         {/* Summary Section */}
         {carts.length > 0 && (
           <div className="my-20 flex-4 w-1/3 rounded-2xl p-10 bg-[#FCFFFC]">
-            <h2 className="text-xl font-semibold">Order Summary</h2>
-
-            <p className="mt-3 text-lg">
-              Total Items: <span className="font-bold">{totalItems}</span>
-            </p>
-            <p className="mt-2 text-lg">
-              Total Price:{" "}
-              <span className="font-bold">${totalCartPrice.toFixed(2)}</span>
-            </p>
-            <Button className="mt-4 w-full bg-green-600 hover:bg-green-700">
-              Proceed to Checkout
-            </Button>
+            {carts.length > 0 && (
+              <OrderSummary
+                totalCartPrice={totalCartPrice}
+                totalItems={totalItems}
+              />
+            )}
+            {/* ckeck out dialog */}
+            <CheckoutDialog />
           </div>
         )}
       </div>
