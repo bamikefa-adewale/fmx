@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
+import { UserResource } from "@clerk/types"; // Import Clerk's User type
 
 type CartItem = {
   id: number;
@@ -13,7 +14,10 @@ type CartItem = {
 };
 
 type CartContextType = {
+  user: UserResource | null | undefined; // Add user here
+
   carts: CartItem[];
+
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: number) => void;
   decreaseQuantity: (id: number) => void;
@@ -22,6 +26,7 @@ type CartContextType = {
 };
 
 const CartContext = createContext<CartContextType>({
+  user: null,
   carts: [],
   addToCart: (item: CartItem) => {},
   removeFromCart: (id: number) => {},
@@ -84,10 +89,11 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setCarts([]);
     return localStorage.removeItem("carts");
   };
-
+  const { user } = useUser();
   return (
     <CartContext
       value={{
+        user,
         carts,
         addToCart,
         removeFromCart,

@@ -8,11 +8,14 @@ import {
   User,
 } from "lucide-react";
 import { useCart } from "../contexts/hook/useCart";
+import { useClerk, SignInButton, UserButton } from "@clerk/nextjs";
+import toast from "react-hot-toast";
 
 const NavigationMenu = () => {
-  const { totalItems } = useCart();
-  console.log("checkingTotalItems", totalItems);
-  // const { theme } = useTheme(); // Get the current theme
+  const { totalItems, user } = useCart();
+
+  const { openSignIn } = useClerk();
+  console.log("openSignIn function:", openSignIn); // Debugging
 
   return (
     <div className="h-[40px] w-[658px]">
@@ -55,12 +58,25 @@ const NavigationMenu = () => {
           </Link>
         </li>
         <li>
-          <Link
-            href="/profile"
-            className="flex items-center text-lg font-[400] dark:text-white gap-2"
-          >
-            <User className="w-[24px] h-[24px]" />
-          </Link>
+          {/* clerk auth  */}
+          {user ? (
+            <>
+              <UserButton />
+            </>
+          ) : (
+            <SignInButton>
+              <button
+                onClick={() => {
+                  openSignIn();
+                  toast.success("sigin open");
+                }}
+                type="button"
+                className="flex items-center  cursor-pointer text-lg font-[400] dark:text-white gap-2"
+              >
+                <User size={24} />
+              </button>
+            </SignInButton>
+          )}
         </li>
       </ul>
     </div>
