@@ -44,7 +44,6 @@ const FrultsDetailsPage = () => {
             <div className="w-full h-full">
               <div className="flex gap-5">
                 <div className="grid ">
-                  {/* {[fruit.image, fruit.image, fruit.image].map((img, index) => ( */}
                   {fruitImages.map(({ image }, index) => (
                     <Image
                       key={index}

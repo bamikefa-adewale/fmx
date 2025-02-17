@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
+import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 
 type CartItem = {
@@ -15,6 +16,7 @@ type CartContextType = {
   carts: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: number) => void;
+  decreaseQuantity: (id: number) => void;
   clearCart: () => void;
   totalItems: number;
 };
@@ -23,21 +25,18 @@ const CartContext = createContext<CartContextType>({
   carts: [],
   addToCart: (item: CartItem) => {},
   removeFromCart: (id: number) => {},
+  decreaseQuantity: (id: number) => {},
   clearCart: () => {},
   totalItems: 0,
 });
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [carts, setCarts] = useState<CartItem[]>([]);
-  // const savedCart = localStorage.getItem("carts");
-  // console.log("savedCart from useCart", savedCart);
-  // const [carts, setCarts] = useState<CartItem[] | []>(
-  //   savedCart ? JSON.parse(savedCart) : []
-  // );
+  const [carts, setCarts] = useState<CartItem[] | []>([]);
+  const totalItems = carts.reduce((total, item) => total + item?.quantity, 0);
 
   // Load cart from localStorage after component mounts
   useEffect(() => {
-    const savedCart = localStorage.getItem("carts");
+    const savedCart = localStorage?.getItem("carts");
     if (savedCart) {
       setCarts(JSON.parse(savedCart));
     }
@@ -46,7 +45,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     // to save my cart to localStorage whenever cart change(user interact with cartbutton)
     if (carts.length > 0) {
-      localStorage.setItem("carts", JSON.stringify(carts));
+      localStorage?.setItem("carts", JSON.stringify(carts));
     }
   }, [carts]);
 
@@ -54,9 +53,9 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     const existingItem = carts?.find((cartItem) => cartItem.id === item.id);
     if (existingItem) {
       setCarts(
-        carts.map((cartItem) =>
-          cartItem.id === item.id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+        carts?.map((cartItem) =>
+          cartItem?.id === item.id
+            ? { ...cartItem, quantity: cartItem?.quantity + 1 }
             : cartItem
         )
       );
@@ -65,15 +64,27 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
+  const decreaseQuantity = (id: number) => {
+    setCarts(
+      carts?.map((item) =>
+        item?.id === id
+          ? { ...item, quantity: item.quantity > 1 ? item.quantity - 1 : 1 }
+          : item
+      )
+    );
+  };
+  const router = useRouter();
   const removeFromCart = (id: number) => {
-    setCarts(carts.filter((item) => item.id !== id));
+    const newCarts = carts?.filter((item) => item.id !== id);
+    setCarts(newCarts);
+    return localStorage.setItem("carts", JSON.stringify(newCarts));
   };
 
   const clearCart = () => {
     setCarts([]);
+    return localStorage.removeItem("carts");
   };
 
-  const totalItems = carts.reduce((total, item) => total + item.quantity, 0);
   return (
     <CartContext
       value={{
@@ -82,6 +93,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         removeFromCart,
         clearCart,
         totalItems,
+        decreaseQuantity,
       }}
     >
       {children}

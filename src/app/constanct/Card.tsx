@@ -7,6 +7,7 @@ import Link from "next/link";
 import SelectedCard from "@/components/SelectedCard";
 import CustomBtn from "@/components/CustomBtn";
 import { useCart } from "../contexts/hook/useCart";
+import toast from "react-hot-toast";
 // import { useRouter } from "next/router";
 
 type CardProps = {
@@ -107,10 +108,12 @@ const Card: React.FC<CardProps> = ({
             {/* Add to Cart Button */}
             <CustomBtn
               label="Add To Cart"
+
               onClick={(e) => {
                 e.stopPropagation(); // Prevent Link from being triggered
                 e.preventDefault(); // Prevent default behavior
                 handleAddToCart();
+                toast.success(`${name} added to cart!`);
               }}
             />
 

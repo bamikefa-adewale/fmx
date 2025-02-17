@@ -5,6 +5,7 @@ import Navbar from "./nav/Navbar";
 import Footer from "./footer/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CartProvider } from "./contexts/CartContext";
+import { Toaster } from "react-hot-toast";
 
 const PoppinSans = Poppins({
   subsets: ["latin"],
@@ -22,11 +23,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <CartProvider>
-      <html lang="en" suppressHydrationWarning>
-        <body
-          className={`${PoppinSans.className} transition-colors duration-300 bg-gray-100 dark:bg-gray-900 text-black dark:text-white`}
-        >
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${PoppinSans.className} transition-colors duration-300 bg-gray-100 dark:bg-gray-900 text-black dark:text-white`}
+      >
+        <CartProvider>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
@@ -38,9 +39,10 @@ export default function RootLayout({
               <main className="flex-grow">{children}</main>
               <Footer />
             </div>
+            <Toaster position="top-right" />
           </ThemeProvider>
-        </body>
-      </html>
-    </CartProvider>
+        </CartProvider>
+      </body>
+    </html>
   );
 }
