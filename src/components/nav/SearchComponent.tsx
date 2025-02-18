@@ -19,7 +19,7 @@ export const SearchComponent = () => {
       <HoverCard onOpenChange={setIsOpen}>
         <HoverCardTrigger asChild>
           <div
-            className={`flex justify-between items-center relative rounded-[8px] border w-[554px] ${
+            className={`flex justify-between items-center relative rounded-[8px] border w-full max-w-[554px] ${
               isOpen ? "border-green-500" : "border-transparent"
             } ${
               theme === "dark"
@@ -53,7 +53,7 @@ export const SearchComponent = () => {
         <HoverCardContent
           align="start"
           sideOffset={4}
-          className={`w-[554px] rounded-b-[8px] rounded-t-none shadow-lg p-4 ${
+          className={`w-full max-w-[554px] rounded-b-[8px] rounded-t-none shadow-lg p-4 ${
             theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
           }`}
         >

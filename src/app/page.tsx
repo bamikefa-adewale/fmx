@@ -1,11 +1,14 @@
-import CategoriesList from "./category/CategoriesList";
+import CategoriesList from "../components/category/CategoriesList";
 import Hero from "./hero/Hero";
-import Recommended from "./recommended/Recommended";
+import Recommended from "../components/recommended/Recommended";
 
 const Homepage = () => {
   return (
     <div className="mb-10">
-      <CategoriesList />
+      <div className="hidden lg:block ">
+        {" "}
+        <CategoriesList />
+      </div>
       <Hero />
       <Recommended />
     </div>

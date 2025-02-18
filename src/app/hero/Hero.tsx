@@ -2,9 +2,9 @@
 
 import Container from "@/components/ui/Container";
 import React, { useState, useEffect } from "react";
-import Heading from "../header/Heading";
-import { fruits } from "../constanct/Constant";
-import Card from "../constanct/Card";
+import Heading from "../../components/header/Heading";
+import { fruits } from "../../components/constanct/Constant";
+import Card from "../../components/constanct/Card";
 
 type Fruit = {
   id: number;
@@ -38,7 +38,7 @@ const Hero: React.FC = () => {
 
   return (
     <Container>
-      <div className="flex justify-between items-center">
+      <div className="flex my-10 justify-between items-center">
         <Heading title="Special Offers" />
         {visibleFruits < fruits.length && !loading && (
           <p
@@ -50,7 +50,7 @@ const Hero: React.FC = () => {
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-10 ">
         {loading
           ? Array.from({ length: visibleFruits }).map((_, index) => (
               <Card

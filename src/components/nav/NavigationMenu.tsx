@@ -1,4 +1,5 @@
 "use client";
+
 import Link from "next/link";
 import {
   MessageSquareText,
@@ -7,20 +8,17 @@ import {
   Bell,
   User,
 } from "lucide-react";
-import { useCart } from "../contexts/hook/useCart";
+import { useCart } from "../../app/contexts/hook/useCart";
 import { useClerk, SignInButton, UserButton } from "@clerk/nextjs";
-import toast from "react-hot-toast";
 
 const NavigationMenu = () => {
   const { totalItems, user } = useCart();
-
   const { openSignIn } = useClerk();
-  console.log("openSignIn function:", openSignIn); // Debugging
 
   return (
-    <div className="h-[40px] w-[658px]">
-      <ul className="flex gap-6 justify-between">
-        <li>
+    <div className="w-full">
+      <ul className="flex flex-wrap gap-6 md:flex md:gap-20 justify-between lg:flex-row sm:flex-col sm:items-center">
+        <li className="py-2">
           <Link
             href="/messages"
             className="flex items-center text-lg font-[400] dark:text-white gap-2"
@@ -28,7 +26,7 @@ const NavigationMenu = () => {
             <MessageSquareText className="w-[24px] h-[24px]" /> My Messages
           </Link>
         </li>
-        <li>
+        <li className="py-2">
           <Link
             href="/orders"
             className="flex items-center text-lg font-[400] dark:text-white gap-2"
@@ -36,7 +34,7 @@ const NavigationMenu = () => {
             <ShoppingBag className="w-[24px] h-[24px]" /> My Orders
           </Link>
         </li>
-        <li>
+        <li className="py-2">
           <Link
             href="/cart"
             className="flex items-center text-lg font-[400] dark:text-white gap-2 relative"
@@ -49,7 +47,7 @@ const NavigationMenu = () => {
             )}
           </Link>
         </li>
-        <li>
+        <li className="py-2">
           <Link
             href="/notifications"
             className="flex items-center text-lg font-[400] dark:text-white gap-2"
@@ -57,21 +55,16 @@ const NavigationMenu = () => {
             <Bell className="w-[24px] h-[24px]" />
           </Link>
         </li>
-        <li>
-          {/* clerk auth  */}
+        <li className="py-2">
+          {/* Clerk Auth */}
           {user ? (
-            <>
-              <UserButton />
-            </>
+            <UserButton />
           ) : (
             <SignInButton>
               <button
-                onClick={() => {
-                  openSignIn();
-                  toast.success("sigin open");
-                }}
+                onClick={() => openSignIn()}
                 type="button"
-                className="flex items-center  cursor-pointer text-lg font-[400] dark:text-white gap-2"
+                className="flex items-center cursor-pointer text-lg font-[400] dark:text-white gap-2"
               >
                 <User size={24} />
               </button>

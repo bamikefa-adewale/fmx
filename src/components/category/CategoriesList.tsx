@@ -34,7 +34,7 @@ const CategoriesList = () => {
     >
       <Container>
         <div className="my-20">
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 h-20">
+          <div className=" flex flex-col md:flex-row items-center gap-4 md:gap-10 h-20">
             <FilterButton />
 
             <div className="flex flex-wrap justify-center md:justify-between gap-4 md:gap-6 w-full overflow-x-auto">

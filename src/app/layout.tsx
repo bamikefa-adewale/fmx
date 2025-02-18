@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Navbar from "./nav/Navbar";
-import Footer from "./footer/Footer";
+import Navbar from "../components/nav/Navbar";
+import Footer from "../components/footer/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CartProvider } from "./contexts/CartContext";
 import { Toaster } from "react-hot-toast";
@@ -37,7 +37,8 @@ export default function RootLayout({
             >
               <div className="flex flex-col min-h-screen">
                 <Navbar />
-                <main className="flex-grow">{children}</main>
+                {/* Main content with responsive padding */}
+                <main className="flex-grow  py-6 sm:py-8">{children}</main>
                 <Footer />
               </div>
               <Toaster position="top-right" />

@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton componen
 import Link from "next/link";
 import SelectedCard from "@/components/SelectedCard";
 import CustomBtn from "@/components/CustomBtn";
-import { useCart } from "../contexts/hook/useCart";
+import { useCart } from "../../app/contexts/hook/useCart";
 import toast from "react-hot-toast";
 // import { useRouter } from "next/router";
 
@@ -49,7 +49,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <Link
       href={`/hero/${id}`}
-      className={`rounded-xl w-[270px] border h-[480px] transition-colors duration-300 ${
+      className={`rounded-xl lg:w-[270px] border h-[480px] w-full transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1A1A1A] border-gray-700 text-white"
           : "bg-[#FCFFFC] border-gray-300 text-black"
@@ -108,7 +108,6 @@ const Card: React.FC<CardProps> = ({
             {/* Add to Cart Button */}
             <CustomBtn
               label="Add To Cart"
-
               onClick={(e) => {
                 e.stopPropagation(); // Prevent Link from being triggered
                 e.preventDefault(); // Prevent default behavior

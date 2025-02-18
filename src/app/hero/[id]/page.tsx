@@ -1,5 +1,5 @@
 "use client";
-import { fruitImages, fruits, tags } from "@/app/constanct/Constant";
+import { fruitImages, fruits, tags } from "@/components/constanct/Constant";
 import CustomBtn from "@/components/CustomBtn";
 import SelectedCard from "@/components/SelectedCard";
 import Container from "@/components/ui/Container";

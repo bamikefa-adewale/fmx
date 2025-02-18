@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { fruits } from "../constanct/Constant";
+import { fruits } from "../../components/constanct/Constant";
 import Container from "@/components/ui/Container";
-import Heading from "../header/Heading";
-import Card from "../constanct/Card";
+import Heading from "../../components/header/Heading";
+import Card from "../../components/constanct/Card";
 
 type Fruit = {
   id: number;
