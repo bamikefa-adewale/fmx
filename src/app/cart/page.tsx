@@ -26,17 +26,17 @@ const CartPage = () => {
   );
   return (
     <Container>
-      <div className="flex gap-6">
+      <div className="flex flex-col md:flex-row gap-6">
         {/* Cart Items */}
-        <div className="my-20 flex-1 rounded-2xl p-10 bg-[#FCFFFC]">
+        <div className="my-20 flex-1 rounded-2xl lg:p-10 bg-[#FCFFFC]">
           {carts?.length === 0 ? (
             <div>
               <EmptyCart />
             </div>
           ) : (
             <div className="space-y-6">
-              <div className="flex justify-between py-3">
-                <h1 className="text-2xl font-normal">
+              <div className="flex items-center justify-between px-3">
+                <h1 className="lg:text-2xl font-normal">
                   Shopping Cart ({totalItems} items)
                 </h1>
                 <Button
@@ -49,61 +49,60 @@ const CartPage = () => {
               {carts?.map((item) => (
                 <div
                   key={item.id}
-                  className="border flex gap-5 justify-between rounded-lg bg-[#FCFFFC] shadow-lg"
+                  className="border flex flex-col md:flex-row gap-5 rounded-lg bg-[#FCFFFC] shadow-lg p-4"
                 >
-                  <div>
+                  <div className="flex justify-center md:block">
                     <Image
                       src={item?.image}
                       alt={item?.name}
-                      className="w-40 h-40 object-cover rounded-lg"
+                      className="w-full lg:w-40 h-40 object-cover rounded-lg"
                       width={60}
                       height={60}
                     />
                   </div>
-
-                  <div className="">
+                  {/* table for cart */}
+                  <div className="w-full overflow-x-auto">
                     <table className="w-full border-collapse">
                       <thead>
                         <tr className="bg-gray-200">
-                          <th className="border-l border-gray-300 px-6 py-3 text-left">
+                          <th className="border border-gray-300 px-4 py-2 text-left">
                             Name
                           </th>
-                          <th className="border-l border-gray-300 px-6 py-3 text-left">
+                          <th className="border border-gray-300 px-4 py-2 text-left">
                             Quantity
                           </th>
-                          <th className="border-l border-gray-300 px-6 py-3 text-left">
+                          <th className="border border-gray-300 px-4 py-2 text-left">
                             Price
                           </th>
-                          <th className="border-l border-gray-300 px-6 py-3 text-left">
+                          <th className="border border-gray-300 px-4 py-2 text-left">
                             Action
                           </th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
-                          <td className="border-l border-gray-300 px-6 py-3">
+                          <td className="border border-gray-300 px-4 py-2">
                             {item.name}
                           </td>
-
-                          <td className="border-l border-gray-300 px-6 py-3 flex items-center">
+                          <td className="border border-gray-300 px-4 py-2 flex items-center">
                             <button
                               onClick={() => decreaseQuantity(item.id)}
-                              className="px-3 py-1 bg-gray-300 hover:bg-gray-100 rounded-r"
+                              className="px-3 py-1 bg-gray-300 hover:bg-gray-100 rounded"
                             >
                               <CircleMinus color="green" />
                             </button>
                             <span className="px-4">{item.quantity}</span>
                             <button
                               onClick={() => addToCart(item)}
-                              className="px-3 py-1 bg-gray-300 hover:bg-gray-100 rounded-r"
+                              className="px-3 py-1 bg-gray-300 hover:bg-gray-100 rounded"
                             >
                               <CirclePlus color="green" />
                             </button>
                           </td>
-                          <td className="border-l border-gray-300 px-6 py-3">
+                          <td className="border border-gray-300 px-4 py-2">
                             ${item.currentPrice}
                           </td>
-                          <td className="border-l border-gray-300 px-6 py-3">
+                          <td className="border border-gray-300 px-4 py-2">
                             <Button
                               onClick={() => {
                                 removeFromCart(item.id);
@@ -111,10 +110,7 @@ const CartPage = () => {
                               }}
                               className="bg-red-500 hover:bg-gray-500 text-white px-3 py-1 flex gap-2 rounded"
                             >
-                              Remove{" "}
-                              <span>
-                                <CopyX color="white" size={25} />
-                              </span>
+                              Remove <CopyX color="white" size={25} />
                             </Button>
                           </td>
                         </tr>
@@ -135,14 +131,14 @@ const CartPage = () => {
 
         {/* Summary Section */}
         {carts.length > 0 && (
-          <div className="my-20 flex-4 w-1/3 rounded-2xl p-10 bg-[#FCFFFC]">
+          <div className=" lg:my-20 w-full md:w-1/3 rounded-2xl p-5 lg:p-10  bg-[#FCFFFC]">
             {carts.length > 0 && (
               <OrderSummary
                 totalCartPrice={totalCartPrice}
                 totalItems={totalItems}
               />
             )}
-            {/* ckeck out dialog */}
+            {/* Checkout dialog */}
             <CheckoutDialog />
           </div>
         )}
