@@ -1,5 +1,5 @@
 import CategoriesList from "../components/category/CategoriesList";
-import Hero from "./hero/Hero";
+import Hero from "./product/Products";
 import Recommended from "../components/recommended/Recommended";
 
 const Homepage = () => {

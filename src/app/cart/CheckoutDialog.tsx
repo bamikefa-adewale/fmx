@@ -2,8 +2,11 @@ import React from "react";
 import { Button } from "../../components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export const CheckoutDialog = () => {
+  const route = useRouter();
   const logo =
     "https://res.cloudinary.com/dbrub0d6r/image/upload/v1739827777/Frame_6671_kwtzwl.png";
   return (
@@ -29,10 +32,13 @@ export const CheckoutDialog = () => {
             </p>
           </div>
           <div className="flex  justify-between gap-1">
-            <p className="text-[#2C9805] text-lg font-semibold">
+            <Link href="/" className="text-[#2C9805] text-lg font-semibold">
               Continue Shopping
-            </p>
+            </Link>
             <Button
+              onClick={() => {
+                ("/order");
+              }}
               type="submit"
               className="bg-[#2C9805] text-lg font-semibold px-10 text-white"
             >

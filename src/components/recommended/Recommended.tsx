@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { fruits } from "../constanct/Constant";
 import Container from "@/components/ui/Container";
 import Heading from "../header/Heading";
-import Card from "../constanct/Card";
+import Card from "../Card";
 
 type Fruit = {
   id: number;

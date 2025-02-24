@@ -1,4 +1,5 @@
 "use client";
+import SubHero from "@/app/product/SubHero";
 import { fruitImages, fruits, tags } from "@/components/constanct/Constant";
 import CustomBtn from "@/components/CustomBtn";
 import SelectedCard from "@/components/SelectedCard";
@@ -6,7 +7,6 @@ import Container from "@/components/ui/Container";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import SubHero from "../SubHero";
 
 type Fruit = {
   id: number;

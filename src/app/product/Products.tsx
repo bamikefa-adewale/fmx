@@ -4,7 +4,7 @@ import Container from "@/components/ui/Container";
 import React, { useState, useEffect } from "react";
 import Heading from "../../components/header/Heading";
 import { fruits } from "../../components/constanct/Constant";
-import Card from "../../components/constanct/Card";
+import Card from "../../components/Card";
 
 type Fruit = {
   id: number;
@@ -17,7 +17,7 @@ type Fruit = {
   markPrice: number;
 };
 
-const Hero: React.FC = () => {
+const Products: React.FC = () => {
   const [visibleFruits, setVisibleFruits] = useState<number>(6);
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -86,4 +86,4 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero;
+export default Products;

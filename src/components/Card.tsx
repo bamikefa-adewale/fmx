@@ -6,7 +6,7 @@ import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton componen
 import Link from "next/link";
 import SelectedCard from "@/components/SelectedCard";
 import CustomBtn from "@/components/CustomBtn";
-import { useCart } from "../../app/contexts/hook/useCart";
+import { useCart } from "../app/contexts/hook/useCart";
 import toast from "react-hot-toast";
 // import { useRouter } from "next/router";
 
@@ -48,7 +48,7 @@ const Card: React.FC<CardProps> = ({
 
   return (
     <Link
-      href={`/hero/${id}`}
+      href={`/product/${id}`}
       className={`rounded-xl lg:w-[270px] border h-[480px] w-full transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1A1A1A] border-gray-700 text-white"
