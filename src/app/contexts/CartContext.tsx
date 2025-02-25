@@ -6,7 +6,7 @@ import { createContext, useEffect, useState } from "react";
 import { UserResource } from "@clerk/types"; // Import Clerk's User type
 
 type CartItem = {
-  id: number;
+  id: string;
   name: string;
   image: string;
   currentPrice: number;
@@ -19,8 +19,8 @@ type CartContextType = {
   carts: CartItem[];
 
   addToCart: (item: CartItem) => void;
-  removeFromCart: (id: number) => void;
-  decreaseQuantity: (id: number) => void;
+  removeFromCart: (id: string) => void;
+  decreaseQuantity: (id: string) => void;
   clearCart: () => void;
   totalItems: number;
 };
@@ -29,8 +29,8 @@ const CartContext = createContext<CartContextType>({
   user: null,
   carts: [],
   addToCart: (item: CartItem) => {},
-  removeFromCart: (id: number) => {},
-  decreaseQuantity: (id: number) => {},
+  removeFromCart: (id: string) => {},
+  decreaseQuantity: (id: string) => {},
   clearCart: () => {},
   totalItems: 0,
 });
@@ -69,7 +69,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const decreaseQuantity = (id: number) => {
+  const decreaseQuantity = (id: string) => {
     setCarts(
       carts?.map((item) =>
         item?.id === id
@@ -79,7 +79,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
   const router = useRouter();
-  const removeFromCart = (id: number) => {
+  const removeFromCart = (id: string) => {
     const newCarts = carts?.filter((item) => item.id !== id);
     setCarts(newCarts);
     return localStorage.setItem("carts", JSON.stringify(newCarts));

@@ -1,12 +1,10 @@
-export const CategoryItem = ({
-  name,
-  isActive,
-  onClick,
-}: {
+import React from "react";
+
+export const CategoryItem: React.FC<{
   name: string;
   isActive: boolean;
   onClick: () => void;
-}) => {
+}> = ({ name, isActive, onClick }) => {
   return (
     <div
       className={`flex items-center justify-center cursor-pointer transition-all ${

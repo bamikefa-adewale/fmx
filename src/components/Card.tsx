@@ -1,25 +1,25 @@
 "use client";
+
 import Image from "next/image";
 import React from "react";
 import { useTheme } from "next-themes";
-import { Skeleton } from "@/components/ui/skeleton"; // Import Skeleton component
+import { Skeleton } from "@/components/ui/skeleton";
 import Link from "next/link";
 import SelectedCard from "@/components/SelectedCard";
 import CustomBtn from "@/components/CustomBtn";
-import { useCart } from "../app/contexts/hook/useCart";
 import toast from "react-hot-toast";
-// import { useRouter } from "next/router";
+import { useCart } from "@/app/contexts/hook/useCart";
 
 type CardProps = {
-  id: number;
+  id: string;
   name: string;
-  image: string;
+  images?: string;
   soldBy: string;
   location: string;
   description: string;
   currentPrice: number;
   markPrice: number;
-  isLoading?: boolean; // Add loading prop
+  isLoading?: boolean;
 };
 
 const Card: React.FC<CardProps> = ({
@@ -31,19 +31,21 @@ const Card: React.FC<CardProps> = ({
   soldBy,
   currentPrice,
   markPrice,
-  isLoading = false, // Default to false
+  isLoading = false,
 }) => {
   const { theme } = useTheme();
   const isDarkMode = theme === "dark";
   const { addToCart } = useCart();
+
   const handleAddToCart = () => {
     addToCart({
       id,
-      image,
+      image: image || "",
       name,
       currentPrice,
       quantity: 1,
     });
+    toast.success(`${name} added to cart!`);
   };
 
   return (
@@ -56,7 +58,6 @@ const Card: React.FC<CardProps> = ({
       }`}
     >
       {isLoading ? (
-        // Show skeleton loader when loading
         <div className="flex flex-col space-y-3 p-4">
           <Skeleton className="h-[132px] w-full rounded-xl" />
           <div className="space-y-2">
@@ -73,15 +74,16 @@ const Card: React.FC<CardProps> = ({
           <Skeleton className="h-4 w-[70%] mt-3" />
         </div>
       ) : (
-        // Show actual card content when not loading
         <>
-          <Image
-            src={image.trim()}
-            width={132}
-            height={216}
-            alt={name}
-            className="w-full h-[132px] object-cover rounded-lg"
-          />
+          {image && (
+            <Image
+              src={images}
+              width={132}
+              height={216}
+              alt={name || "Product Image"}
+              className="w-full h-[132px] object-cover rounded-lg"
+            />
+          )}
           <div className="p-4">
             <p
               className={`text-sm font-normal my-2 leading-[13.5px] ${
@@ -91,7 +93,7 @@ const Card: React.FC<CardProps> = ({
               {name}
             </p>
             <h3 className="font-normal text-xl leading-[30px] my-3">
-              <span className="flex gap-5"> {location}</span>
+              <span className="flex gap-5">{location}</span>
               {description}
             </h3>
 
@@ -109,10 +111,9 @@ const Card: React.FC<CardProps> = ({
             <CustomBtn
               label="Add To Cart"
               onClick={(e) => {
-                e.stopPropagation(); // Prevent Link from being triggered
-                e.preventDefault(); // Prevent default behavior
+                e.stopPropagation();
+                e.preventDefault();
                 handleAddToCart();
-                toast.success(`${name} added to cart!`);
               }}
             />
 

@@ -7,6 +7,7 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { CartProvider } from "./contexts/CartContext";
 import { Toaster } from "react-hot-toast";
 import { ClerkProvider } from "@clerk/nextjs";
+import QueryProvider from "@/provider/QueryProvider";
 const PoppinSans = Poppins({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -28,22 +29,24 @@ export default function RootLayout({
         <body
           className={`${PoppinSans.className} transition-colors duration-300 bg-gray-100 dark:bg-gray-900 text-black dark:text-white`}
         >
-          <CartProvider>
-            <ThemeProvider
-              attribute="class"
-              defaultTheme="system"
-              enableSystem
-              disableTransitionOnChange
-            >
-              <div className="flex flex-col min-h-screen">
-                <Navbar />
-                {/* Main content with responsive padding */}
-                <main className="flex-grow  py-6 sm:py-8">{children}</main>
-                <Footer />
-              </div>
-              <Toaster position="top-right" />
-            </ThemeProvider>
-          </CartProvider>
+          <QueryProvider>
+            <CartProvider>
+              <ThemeProvider
+                attribute="class"
+                defaultTheme="system"
+                enableSystem
+                disableTransitionOnChange
+              >
+                <div className="flex flex-col min-h-screen">
+                  <Navbar />
+                  {/* Main content with responsive padding */}
+                  <main className="flex-grow  py-6 sm:py-8">{children}</main>
+                  <Footer />
+                </div>
+                <Toaster position="top-right" />
+              </ThemeProvider>
+            </CartProvider>
+          </QueryProvider>
         </body>
       </html>
     </ClerkProvider>
