@@ -1,6 +1,7 @@
 import toast from "react-hot-toast";
 
 export type Product = {
+  images(images: any): unknown;
   id: number;
   name: string;
   soldBy: string;

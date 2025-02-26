@@ -17,7 +17,7 @@ type CardProps = {
   soldBy: string;
   location: string;
   description: string;
-  currentPrice: number;
+  currentPrice: number; 
   markPrice: number;
   isLoading?: boolean;
 };
@@ -25,7 +25,7 @@ type CardProps = {
 const Card: React.FC<CardProps> = ({
   id,
   name,
-  image,
+  images,
   location,
   description,
   soldBy,
@@ -40,7 +40,7 @@ const Card: React.FC<CardProps> = ({
   const handleAddToCart = () => {
     addToCart({
       id,
-      image: image || "",
+      image: images || "",
       name,
       currentPrice,
       quantity: 1,
@@ -51,7 +51,7 @@ const Card: React.FC<CardProps> = ({
   return (
     <Link
       href={`/product/${id}`}
-      className={`rounded-xl lg:w-[270px] border h-[480px] w-full transition-colors duration-300 ${
+      className={`rounded-xl lg:w-[270px] border w-full transition-colors duration-300 ${
         isDarkMode
           ? "bg-[#1A1A1A] border-gray-700 text-white"
           : "bg-[#FCFFFC] border-gray-300 text-black"
@@ -75,7 +75,7 @@ const Card: React.FC<CardProps> = ({
         </div>
       ) : (
         <>
-          {image && (
+          {images && (
             <Image
               src={images}
               width={132}
@@ -92,11 +92,13 @@ const Card: React.FC<CardProps> = ({
             >
               {name}
             </p>
-            <h3 className="font-normal text-xl leading-[30px] my-3">
-              <span className="flex gap-5">{location}</span>
-              {description}
+            <h3 className="flex gap-5 font-normal text-xl leading-[30px] my-3">
+              {location}
             </h3>
 
+            <p className="text-lg font-normal text-black leading-[20px] my-3">
+              {description}
+            </p>
             <p className="text-xl font-medium leading-[19px] my-3">
               ${currentPrice}
             </p>

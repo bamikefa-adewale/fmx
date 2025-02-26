@@ -2,21 +2,25 @@
 
 import { useCategories } from "@/app/hooks/useCategories";
 import { useTheme } from "next-themes";
-import { useState } from "react";
+import React, { useState } from "react";
 import Container from "../ui/Container";
 import { FilterButton } from "./FilterButton";
 import { Skeleton } from "../ui/skeleton";
 import { CategoryItem } from "../ui/CategoryItem";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-const CategoriesList = () => {
-  const [activeCategory, setActiveCategory] = useState<string | null>(null);
-  const [startIndex, setStartIndex] = useState(0);
-  const { data: categories, isPending, error } = useCategories();
-  console.log(categories);
+interface CategoriesListProps {
+  onCategorySelect: (category: string | null) => void;
+}
 
-  const itemsPerPage = 8;
+const CategoriesList: React.FC<CategoriesListProps> = ({
+  onCategorySelect,
+}) => {
+  const [startIndex, setStartIndex] = useState(0);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+  const { data: categories, isPending, error } = useCategories();
   const { theme } = useTheme();
+  const itemsPerPage = 8;
 
   if (error) {
     return <p className="text-red-500 text-center">Error: {error.message}</p>;
@@ -38,9 +42,18 @@ const CategoriesList = () => {
             <FilterButton />
 
             <div className="flex flex-wrap justify-center md:justify-between gap-4 md:gap-6 w-full overflow-x-auto">
-              {/* need to fix later */}
-              <h4>All Category</h4>
-              {/* Show skeletons while loading */}
+              <h4
+                className={`cursor-pointer ${
+                  activeCategory === null ? "font-bold text-green-500" : ""
+                }`}
+                onClick={() => {
+                  setActiveCategory(null);
+                  onCategorySelect(null);
+                }}
+              >
+                All Category
+              </h4>
+
               {isPending
                 ? [...Array(itemsPerPage)].map((_, index) => (
                     <Skeleton
@@ -54,12 +67,14 @@ const CategoriesList = () => {
                       <CategoryItem
                         key={category.id}
                         name={category.name}
-                        isActive={category.name === activeCategory}
-                        onClick={() => setActiveCategory(category.name)}
+                        isActive={category.id.toString() === activeCategory}
+                        onClick={() => {
+                          setActiveCategory(category.id.toString());
+                          onCategorySelect(category.id.toString());
+                        }}
                       />
                     ))}
 
-              {/* Pagination Controls */}
               <div className="flex items-center cursor-pointer gap-4">
                 <ChevronLeft
                   onClick={() => setStartIndex((prev) => Math.max(0, prev - 1))}

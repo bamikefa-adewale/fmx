@@ -72,7 +72,7 @@ const Recommended = () => {
                   id={item.id}
                   key={item.id}
                   name={item.name}
-                  image={item.image}
+                  images={item.image}
                   location={item.location}
                   description={item.description}
                   soldBy={item.soldBy}
