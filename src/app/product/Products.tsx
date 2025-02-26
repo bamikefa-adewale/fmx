@@ -1,10 +1,11 @@
 "use client";
 
 import Container from "@/components/ui/Container";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Heading from "../../components/header/Heading";
 import Card from "../../components/Card";
 import { useAllProducts } from "../hooks/useAllProducts";
+import { categories } from "@/db/schema";
 
 interface ProductsProps {
   activeCategory: string | null;
@@ -16,12 +17,13 @@ const Products: React.FC<ProductsProps> = ({ activeCategory }) => {
   const filteredProducts = activeCategory
     ? products?.filter((product) => product.category_Id === activeCategory)
     : products;
+  console.log(`targetting categoryId `, activeCategory);
 
   const loadMore = () => {
     setVisibleProducts(filteredProducts?.length || 0);
   };
 
-  useEffect(() => {}, [activeCategory, filteredProducts]);
+  // useEffect(() => {}, [activeCategory, filteredProducts]);
 
   // Show error message if there's an error
   if (error) {

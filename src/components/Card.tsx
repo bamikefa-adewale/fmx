@@ -96,7 +96,7 @@ const Card: React.FC<CardProps> = ({
               {location}
             </h3>
 
-            <p className="text-lg font-normal text-black leading-[20px] my-3">
+            <p className="text-sm font-normal text-black leading-[20px] my-3">
               {description}
             </p>
             <p className="text-xl font-medium leading-[19px] my-3">
