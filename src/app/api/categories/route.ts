@@ -33,10 +33,10 @@ export async function POST(req: NextRequest) {
   );
 }
 
+// GET PRODUCTS 
 export async function GET() {
   try {
     const data = await db.select().from(categories);
-    console.log(data);
     if (!data)
       return NextResponse.json(
         { message: "no data found", success: false },

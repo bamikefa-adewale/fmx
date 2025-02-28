@@ -1,19 +1,14 @@
-"use client";
 import CategoriesList from "@/components/category/CategoriesList";
-import Products from "./product/Products";
-import Recommended from "@/components/recommended/Recommended";
-import { useState } from "react";
+import Products from "@/components/productsCompoents/products";
 
 const Homepage = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-
   return (
     <div className="mb-10">
       <div className="hidden lg:block ">
-        <CategoriesList onCategorySelect={setSelectedCategory} />
+        <CategoriesList />
       </div>
-      <Products activeCategory={selectedCategory} />
-      <Recommended />
+      <Products />
+      {/* <Recommended /> */}
     </div>
   );
 };

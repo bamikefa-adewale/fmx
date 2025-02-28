@@ -8,6 +8,7 @@ import { CartProvider } from "./contexts/CartContext";
 import { Toaster } from "react-hot-toast";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/provider/QueryProvider";
+
 const PoppinSans = Poppins({
   subsets: ["latin"],
   weight: ["400", "700"],

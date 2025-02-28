@@ -1,23 +1,20 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 import { UserResource } from "@clerk/types"; // Import Clerk's User type
 
 type CartItem = {
   id: string;
   name: string;
-  image: string;
+  images: string[];
   currentPrice: number;
   quantity: number;
 };
 
 type CartContextType = {
   user: UserResource | null | undefined; // Add user here
-
   carts: CartItem[];
-
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
   decreaseQuantity: (id: string) => void;
@@ -78,7 +75,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       )
     );
   };
-  const router = useRouter();
   const removeFromCart = (id: string) => {
     const newCarts = carts?.filter((item) => item.id !== id);
     setCarts(newCarts);

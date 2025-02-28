@@ -8,19 +8,15 @@ import { FilterButton } from "./FilterButton";
 import { Skeleton } from "../ui/skeleton";
 import { CategoryItem } from "../ui/CategoryItem";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
-interface CategoriesListProps {
-  onCategorySelect: (category: string | null) => void;
-}
-
-const CategoriesList: React.FC<CategoriesListProps> = ({
-  onCategorySelect,
-}) => {
+const CategoriesList = () => {
   const [startIndex, setStartIndex] = useState(0);
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const { data: categories, isPending, error } = useCategories();
-  const { theme } = useTheme();
+  const router = useRouter();
   const itemsPerPage = 8;
+  const { theme } = useTheme();
 
   if (error) {
     return <p className="text-red-500 text-center">Error: {error.message}</p>;
@@ -42,23 +38,26 @@ const CategoriesList: React.FC<CategoriesListProps> = ({
             <FilterButton />
 
             <div className="flex flex-wrap justify-center md:justify-between gap-4 md:gap-6 w-full overflow-x-auto">
-              <h4
-                className={`cursor-pointer ${
-                  activeCategory === null ? "font-bold text-green-500" : ""
-                }`}
-                onClick={() => {
-                  setActiveCategory(null);
-                  onCategorySelect(null);
-                }}
-              >
-                All Category
-              </h4>
+              {isPending ? (
+                <Skeleton className="h-[30px] w-[120px] rounded-lg" />
+              ) : (
+                <h4
+                  className={`cursor-pointer ${
+                    activeCategory === null ? "font-bold text-green-500" : ""
+                  }`}
+                  onClick={() => {
+                    setActiveCategory(null);
+                  }}
+                >
+                  All Category
+                </h4>
+              )}
 
               {isPending
                 ? [...Array(itemsPerPage)].map((_, index) => (
                     <Skeleton
                       key={index}
-                      className="h-[22px] w-[120px] rounded-lg"
+                      className="h-[30px] w-[120px] rounded-lg bg-gray-200"
                     />
                   ))
                 : categories
@@ -70,7 +69,7 @@ const CategoriesList: React.FC<CategoriesListProps> = ({
                         isActive={category.id.toString() === activeCategory}
                         onClick={() => {
                           setActiveCategory(category.id.toString());
-                          onCategorySelect(category.id.toString());
+                          router.push(`/category/${category.id}`);
                         }}
                       />
                     ))}

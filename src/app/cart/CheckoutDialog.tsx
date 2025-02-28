@@ -3,10 +3,8 @@ import { Button } from "../../components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 
 export const CheckoutDialog = () => {
-  const route = useRouter();
   const logo =
     "https://res.cloudinary.com/dbrub0d6r/image/upload/v1739827777/Frame_6671_kwtzwl.png";
   return (
