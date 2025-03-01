@@ -8,7 +8,6 @@ import CardSkeleton from "../CardSkeleton";
 
 const Products = () => {
   const { data: products, isPending, error } = useAllProducts();
-  console.log(products);
 
   // Show error message if there's an error
   if (error) {

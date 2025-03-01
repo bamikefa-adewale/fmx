@@ -14,7 +14,6 @@ export type Products = {
 export const getProductByCategory = async (id: string): Promise<Products[]> => {
   const res = await fetch(`/api/categories/${id}/product`);
   const data = await res.json();
-  console.log(data);
   if (!data || !data?.data) {
     toast.error(data.message || "No product found");
     return [];

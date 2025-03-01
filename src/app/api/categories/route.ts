@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
   );
 }
 
-// GET PRODUCTS 
+// GET categories 
 export async function GET() {
   try {
     const data = await db.select().from(categories);

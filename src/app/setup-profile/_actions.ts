@@ -6,7 +6,6 @@ export const completeOnboarding = async (formData: FormData) => {
   const client = await clerkClient();
 
   const { userId } = await auth();
-  console.log(userId);
 
   if (!userId) {
     return { message: "No Logged In User" };
