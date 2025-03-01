@@ -31,7 +31,7 @@ const ProductDetailsPage = () => {
                     <Image
                       key={index}
                       src={image} // ✅ Directly using 'image' without 'imageObj'
-                      alt={fruit.name}
+                      alt={fruits?.name}
                       width={155}
                       height={146}
                       className="w-[155px] h-[146px] object-cover rounded-lg cursor-pointer border-2 hover:border-[#2C9805]"
