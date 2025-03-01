@@ -3,7 +3,6 @@ import { products } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
 
-// fetching product by category id
 export async function GET(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -19,25 +18,34 @@ export async function GET(
     const data = await db
       .select()
       .from(products)
-      .where(eq(products.category_Id, id));
+      .where(eq(products.id, id))
+      .limit(1);
     if (!data.length) {
       return NextResponse.json(
         { message: "No products found for this category", success: false },
         { status: 404 }
       );
     }
-
-    return NextResponse.json({
-      message: "Products fetched successfully",
-      status: true,
-      data,
-    });
+    console.log(data, "Hello");
+    return NextResponse.json(
+      {
+        message: "Category fetched successfully",
+        status: true,
+        data: data[0],
+      },
+      {
+        status: 200,
+      }
+    );
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return NextResponse.json({ message: error.message }, { status: 500 });
+      return NextResponse.json(
+        { message: error.message, status: false },
+        { status: 500 }
+      );
     }
     return NextResponse.json(
-      { message: "Something went wrong" },
+      { message: "Something went wrong", status: false },
       { status: 500 }
     );
   }
