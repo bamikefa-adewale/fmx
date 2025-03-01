@@ -23,7 +23,7 @@ const CategoriesList = () => {
   }
 
   if (!categories?.length && !isPending) {
-    return <p className="text-gray-500 text-center">No categories found.</p>;
+    return <p className="text-red-500 text-center">No categories found.</p>;
   }
 
   return (

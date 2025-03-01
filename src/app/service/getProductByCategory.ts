@@ -11,7 +11,10 @@ export type Products = {
   markPrice: number;
 };
 
-export const getProductByCategory = async (id: string): Promise<Products[]> => {
+export const getProductByCategory = async (
+  id: string
+): Promise<Products[] | null> => {
+  if (!id) return null;
   const res = await fetch(`/api/categories/${id}/product`);
   const data = await res.json();
   if (!data || !data?.data) {

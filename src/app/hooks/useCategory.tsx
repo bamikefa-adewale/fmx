@@ -1,12 +1,15 @@
-// import { useQuery } from "@tanstack/react-query";
-// import { getCategoryById } from "../service/getCategoryById";
+import { useQuery } from "@tanstack/react-query";
+import { getSingleCategory } from "../service/getSingleCategory";
+import { useParams } from "next/navigation";
 
-// export const useCategory = (id: string) => {
-//   const { data, isPending, error } = useQuery({
-//     queryKey: ["category", id],
-//     queryFn: () => getCategoryById(id),
-//     enabled: !!id,
-//   });
-// console.log(data)
-//   return { data, isPending, error };
-// };
+export const useCategory = () => {
+  const { id } = useParams() as {
+    id: string;
+  };
+  const { data, isPending, error } = useQuery({
+    queryKey: ["category", id],
+    queryFn: () => getSingleCategory(id),
+  });
+
+  return { category: data?.data, isPending, error };
+};

@@ -1,44 +1,52 @@
 import { db } from "@/db/drizzle";
-import { products } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { categories } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
+import { eq } from "drizzle-orm";
 
-// fetching product by category id
+// fetching A SINGLE categoryID
 export async function GET(
   req: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
-  const { id } = await params;
+  const { id } = params;
   if (!id) {
     return NextResponse.json(
       { message: "Category ID is required", success: false },
       { status: 400 }
     );
   }
-  console.log("targetting categoryid", id);
   try {
     const data = await db
       .select()
-      .from(products)
-      .where(eq(products.category_Id, id));
+      .from(categories)
+      .where(eq(categories.id, id))
+      .limit(1);
     if (!data.length) {
       return NextResponse.json(
         { message: "No products found for this category", success: false },
         { status: 404 }
       );
     }
-   
-    return NextResponse.json({
-      message: "Products fetched successfully",
-      status: true,
-      data,
-    });
+
+    return NextResponse.json(
+      {
+        message: "Category fetched successfully",
+        status: true,
+        data: data[0],
+      },
+      {
+        status: 200,
+      }
+    );
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return NextResponse.json({ message: error.message }, { status: 500 });
+      return NextResponse.json(
+        { message: error.message, status: false },
+        { status: 500 }
+      );
     }
     return NextResponse.json(
-      { message: "Something went wrong" },
+      { message: "Something went wrong", status: false },
       { status: 500 }
     );
   }

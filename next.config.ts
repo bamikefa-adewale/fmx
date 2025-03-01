@@ -1,4 +1,4 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next/dist/server/config";
 
 const nextConfig: NextConfig = {
   images: {
