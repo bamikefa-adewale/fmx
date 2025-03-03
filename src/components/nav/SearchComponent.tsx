@@ -14,7 +14,7 @@ export const SearchComponent = () => {
   const { theme } = useTheme(); // Get the current theme
 
   return (
-    <div className="flex flex-col justify-between items-center">
+    <div className="flex flex-col justify-between items-center w-full">
       {/* Search Input and Icon */}
       <HoverCard onOpenChange={setIsOpen}>
         <HoverCardTrigger asChild>
@@ -53,7 +53,7 @@ export const SearchComponent = () => {
         <HoverCardContent
           align="start"
           sideOffset={4}
-          className={`w-full max-w-[554px] rounded-b-[8px] rounded-t-none shadow-lg p-4 ${
+          className={` max-w-[554px] rounded-b-[8px] rounded-t-none shadow-lg p-4 ${
             theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
           }`}
         >

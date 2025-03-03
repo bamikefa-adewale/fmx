@@ -34,7 +34,7 @@ const Navbar = () => {
           </Link>
 
           {/* Search Bar */}
-          <div className="hidden lg:block ">
+          <div className="hidden lg:block w-[25%]">
             <SearchComponent />
           </div>
 
