@@ -8,13 +8,15 @@ import { SearchComponent } from "./SearchComponent";
 import { ModeToggle } from "@/components/ModeToggle";
 import { useState } from "react";
 import { X } from "lucide-react";
+import { useTheme } from "next-themes";
 
 const Navbar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // Toggle state for mobile menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme } = useTheme(); // Get the current theme
   const logoImage =
     "https://res.cloudinary.com/dbrub0d6r/image/upload/v1739804221/logo2_3_qmauk8.png";
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen); // Toggle menu visibility
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   return (
     <section className="fixed left-0 w-full bg-gray-100 dark:bg-black z-50 h-[76px]">
@@ -37,11 +39,8 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button className="block lg:hidden text-white" onClick={toggleMenu}>
-            <span className="material-icons">
-              <X size={30} color="black" />
-            </span>{" "}
-            {/* Hamburger Icon */}
+          <button className="block lg:hidden" onClick={toggleMenu}>
+            <X size={30} color={theme === "dark" ? "white" : "black"} />
           </button>
 
           {/* Desktop Navigation Menu */}
@@ -64,4 +63,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
