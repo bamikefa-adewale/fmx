@@ -1,10 +1,11 @@
 "use client";
 import { useCategory } from "@/app/hooks/useCategory";
-// import { useCategory } from "@/app/hooks/useCategory";
 import { useProductsByCategory } from "@/app/hooks/useProductsByCategory";
 import CardSkeleton from "@/components/CardSkeleton";
 import ProductsCard from "@/components/ProductsCard";
 import Container from "@/components/ui/Container";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
 
@@ -25,17 +26,38 @@ const CategoryList = () => {
     <section className="my-20 ">
       <Container>
         <div className="my-10">
-          <div
-            onClick={() => router.back()}
-            className="w-20 text-white my-3 cursor-pointer bg-gray-500 hover:bg-black px-4 py-2 rounded-lg text-center"
-          >
-            Back
+          <div className="my-10 flex items-center gap-2">
+            {isCategoryPending ? (
+              <Skeleton className="h-6 w-16 rounded-lg" />
+            ) : (
+              <span
+                onClick={() => router.back()}
+                className="gap-1 capitalize cursor-pointer text-black text-[24px] leading-[24px] font-medium rounded-lg"
+              >
+                Home
+              </span>
+            )}
+            <ChevronRight />
+            {isCategoryPending ? (
+              <Skeleton className="h-6 w-24 rounded-lg" />
+            ) : (
+              <span className="text-[#818B80] text-[24px] font-normal">
+                {category?.name}
+              </span>
+            )}
           </div>
+
           <h1 className="text-2xl font-bold mb-6 capitalize">
             {" "}
-            {isCategoryPending
-              ? "loading..."
-              : `Products in ${category?.name}`}{" "}
+            {isCategoryPending ? (
+              <>
+                <Skeleton className="h-[32px] w-64 rounded-lg" />
+              </>
+            ) : (
+              <p className="text-3xl font-normal text-black">
+                {category?.name}
+              </p>
+            )}{" "}
           </h1>
           {!isPending && products?.length === 0 && (
             <p className="text-gray-500 text-center">No products found.</p>

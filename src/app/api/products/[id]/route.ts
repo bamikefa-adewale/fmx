@@ -26,7 +26,6 @@ export async function GET(
         { status: 404 }
       );
     }
-    console.log(data, "Hello");
     return NextResponse.json(
       {
         message: "Category fetched successfully",

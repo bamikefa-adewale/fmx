@@ -2,13 +2,12 @@ import { db } from "@/db/drizzle";
 import { categories } from "@/db/schema";
 import { NextRequest, NextResponse } from "next/server";
 import { eq } from "drizzle-orm";
-
 // fetching A SINGLE categoryID
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id } = params;
+  const { id } = await params;
   if (!id) {
     return NextResponse.json(
       { message: "Category ID is required", success: false },

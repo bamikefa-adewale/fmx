@@ -53,7 +53,7 @@ const CartPage = () => {
                 >
                   <div className="flex justify-center md:block">
                     <Image
-                      src={item?.image}
+                      src={item?.images[0]}
                       alt={item?.name}
                       className="w-full lg:w-40 h-40 object-cover rounded-lg"
                       width={60}

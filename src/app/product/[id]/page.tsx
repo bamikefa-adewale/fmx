@@ -8,32 +8,33 @@ import Container from "@/components/ui/Container";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 
-type Product = {
-  id: string;
-  name: string;
-  soldBy: string;
-  location: string;
-  description: string;
-  currentPrice: number;
-  markPrice: number;
-  images: string[];
-};
+// interface Product {
+//   id: string;
+//   name: string;
+//   soldBy: string;
+//   location: string;
+//   description: string;
+//   currentPrice: number;
+//   markPrice: number;
+//   images: string[];
+// }
 
-const ProductDetails: React.FC<Product> = () => {
+const ProductDetails = () => {
   const { product, isPending, error } = useProduct();
   const [activeTags, setActiveTags] = useState<string>(tags[0].title);
-  const [mainImage, setMainImage] = useState<string | null>(null); // State for the main image
+  const [mainImage, setMainImage] = useState<string | null>(null);
 
   // Set the main image to the first image when the product data is fetched
   useEffect(() => {
     if (product?.images && product.images.length > 0) {
       setMainImage(product.images[0]);
+    } else {
+      setMainImage(""); 
     }
   }, [product]);
-
   if (isPending) return <div>Loading...</div>;
   if (error) return <div>Error: {error.message}</div>;
-  if (!product) return <div>Product not found</div>;
+  if (!product) return <div className="text-red-300">Product not found</div>;
 
   return (
     <Container>

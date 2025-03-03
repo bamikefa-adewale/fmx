@@ -11,6 +11,5 @@ export const useProduct = () => {
     queryKey: ["products", id],
     queryFn: () => getSingleProducts(id),
   });
-  console.log(data);
   return { product: data?.data, isPending, error };
 };
