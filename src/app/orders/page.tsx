@@ -1,12 +1,12 @@
 import Container from "@/components/ui/Container";
 import React from "react";
 
-const OrdersPage = () => {
+const Orders = () => {
   return (
     <Container>
-      <div>my order</div>
+      <div className="my-20">my order</div>
     </Container>
   );
 };
 
-export default OrdersPage;
+export default Orders;

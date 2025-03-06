@@ -36,3 +36,17 @@ export const categories = pgTable("categories", {
   id: uuid("id").primaryKey(),
   name: text("name").notNull().unique(),
 });
+
+//order table
+export const orders = pgTable("orders", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  user_id: text("user_id").notNull(),
+  items: jsonb("items").notNull(), // Store items details (array of itemss)
+  status: text("status").default("pending"), // e.g., pending, completed, canceled
+  created_at: timestamp("created_at", { withTimezone: true })
+    .notNull()
+    .default(sql`now()`),
+  updated_at: timestamp("updated_at", { withTimezone: true })
+    .notNull()
+    .default(sql`now()`),
+});

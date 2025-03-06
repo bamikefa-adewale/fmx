@@ -2,7 +2,7 @@
 import CartDetails from "@/components/cart/CartDetails";
 import Container from "@/components/ui/Container";
 
-const CartPage = () => {
+const Page = () => {
   return (
     <Container>
       <CartDetails />
@@ -10,4 +10,4 @@ const CartPage = () => {
   );
 };
 
-export default CartPage;
+export default Page;

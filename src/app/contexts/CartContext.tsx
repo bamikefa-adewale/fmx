@@ -4,7 +4,7 @@ import { useUser } from "@clerk/nextjs";
 import { createContext, useEffect, useState } from "react";
 import { UserResource } from "@clerk/types"; // Import Clerk's User type
 
-type CartItem = {
+export type CartItem = {
   id: string;
   name: string;
   images: string[];

@@ -1,16 +1,19 @@
 "use client";
-import { CheckoutDialog } from "@/app/cart/CheckoutDialog";
-import OrderSummary from "@/app/cart/OrderSummary";
+import { CheckoutDialog } from "@/components/cart/CheckoutDialog";
+import OrderSummary from "@/components/cart/OrderSummary";
 import { useCart } from "@/app/contexts/hook/useCart";
 import React from "react";
 import Container from "../ui/Container";
-import { EmptyCart } from "@/app/cart/EmptyCart";
+import { EmptyCart } from "@/components/cart/EmptyCart";
 import { Button } from "../ui/button";
 import Image from "next/image";
 import { CircleMinus, CirclePlus, CopyX } from "lucide-react";
 import toast from "react-hot-toast";
+import { useAuth } from "@clerk/nextjs";
+import useCheckOut from "./hooks/useCheckOut";
 
 const CartDetails = () => {
+  const { userId, isSignedIn } = useAuth();
   const {
     totalItems,
     carts,
@@ -19,6 +22,7 @@ const CartDetails = () => {
     clearCart,
     decreaseQuantity,
   } = useCart();
+  const { handleCheckout, isPending, toggle, isOpen } = useCheckOut();
   const totalCartPrice = carts?.reduce(
     (acc, item) => acc + item.quantity * item.currentPrice,
     0
@@ -142,10 +146,18 @@ const CartDetails = () => {
               />
             )}
             {/* Checkout dialog */}
-            <CheckoutDialog />
+
+            <Button
+              className="mt-4 w-full bg-green-600 hover:bg-green-700"
+              disabled={!isSignedIn || !userId || isPending}
+              onClick={handleCheckout}
+            >
+              {isPending ? "Prcoessing Order..." : " Place Order Now"}
+            </Button>
           </div>
         )}
       </div>
+      <CheckoutDialog open={isOpen} toggle={toggle} />
     </Container>
   );
 };

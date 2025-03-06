@@ -20,7 +20,7 @@ const NavigationMenu = () => {
       <ul className="flex flex-wrap gap-6 md:flex md:gap-20 justify-between lg:flex-row sm:flex-col sm:items-center">
         <li className="py-2">
           <Link
-            href="/messages"
+            href="/message"
             className="flex items-center text-lg font-[400] dark:text-white gap-2"
           >
             <MessageSquareText className="w-[24px] h-[24px]" /> My Messages

@@ -3,6 +3,8 @@ import MobileCategoryList from "@/components/category/MobileCategoryList";
 import Products from "@/components/productsCompoents/products";
 // import Recommended from "@/components/recomended/Recommended";
 
+
+
 const Homepage = () => {
   return (
     <div className="mb-10">
