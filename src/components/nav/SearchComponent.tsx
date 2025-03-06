@@ -20,7 +20,6 @@ export const SearchComponent = () => {
       const params = new URLSearchParams({
         searchTerm: value,
       }).toString();
-      console.log(params);
       router.replace(`${pathname}?${params}`);
     } else {
       return router.replace(pathname);
@@ -63,27 +62,6 @@ export const SearchComponent = () => {
             )}
           </div>
         </HoverCardTrigger>
-
-        {/* Modal (HoverCardContent) */}
-        {/* {search && data && (
-          <HoverCardContent
-            align="start"
-            sideOffset={4}
-            className={`max-w-[554px] rounded-b-[8px] rounded-t-none shadow-lg p-4 ${
-              theme === "dark"
-                ? "bg-gray-900 text-white"
-                : "bg-white text-black"
-            }`}
-          >
-            {data?.data?.length > 0 ? (
-              data?.data?.map((product) => (
-                <p key={product.id}>{product.name}</p> // Display search results
-              ))
-            ) : (
-              <p>No products found.</p>
-            )}
-          </HoverCardContent>
-        )} */}
       </HoverCard>
     </div>
   );

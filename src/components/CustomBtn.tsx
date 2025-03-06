@@ -5,16 +5,19 @@ type CustomBtnProps = {
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; // Accept event parameter
   isDarkMode?: boolean;
   className?: string;
+  disabled: boolean;
 };
 
 const CustomBtn: React.FC<CustomBtnProps> = ({
   label,
   onClick,
+  disabled,
   isDarkMode = false,
   className = "",
 }) => {
   return (
     <button
+      disabled={disabled}
       onClick={onClick}
       className={`mt-4 py-3 px-4 border h-[48px] rounded-lg w-full transition-all duration-300
         ${
