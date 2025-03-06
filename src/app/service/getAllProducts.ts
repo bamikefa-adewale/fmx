@@ -12,8 +12,8 @@ export type Product = {
   user_id: string;
   category_Id: string;
 };
-export const getAllProducts = async (): Promise<Product[]> => {
-  const res = await fetch("/api/products");
+export const getAllProducts = async (search = ""): Promise<Product[]> => {
+  const res = await fetch(`/api/products?search=${search}`);
   const data = await res.json();
 
   if (!data || !data?.data) {

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { SearchComponent } from "./SearchComponent";
 import { ModeToggle } from "@/components/ModeToggle";
 import { useState } from "react";
-import { X } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useTheme } from "next-themes";
 
 const Navbar = () => {
@@ -40,7 +40,7 @@ const Navbar = () => {
 
           {/* Mobile Menu Toggle */}
           <button className="block lg:hidden" onClick={toggleMenu}>
-            <X size={30} color={theme === "dark" ? "white" : "black"} />
+            <Menu size={30} color={theme === "dark" ? "white" : "black"} />
           </button>
 
           {/* Desktop Navigation Menu */}

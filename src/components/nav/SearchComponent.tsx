@@ -1,18 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search, X } from "lucide-react";
 import { useTheme } from "next-themes";
-import {
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent,
-} from "@radix-ui/react-hover-card";
+import { HoverCard, HoverCardTrigger } from "@radix-ui/react-hover-card";
+import { useDebounce } from "use-debounce";
+import { usePathname, useRouter } from "next/navigation";
 
 export const SearchComponent = () => {
+  const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const { theme } = useTheme(); // Get the current theme
+  const [value] = useDebounce(search, 1000);
+  const pathname = usePathname();
+  const router = useRouter();
 
+  useEffect(() => {
+    if (value) {
+      const params = new URLSearchParams({
+        searchTerm: value,
+      }).toString();
+      console.log(params);
+      router.replace(`${pathname}?${params}`);
+    } else {
+      return router.replace(pathname);
+    }
+  }, [value, pathname, router]);
   return (
     <div className="flex flex-col justify-between items-center w-full">
       {/* Search Input and Icon */}
@@ -28,6 +41,8 @@ export const SearchComponent = () => {
             }`}
           >
             <input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               type="text"
               placeholder="What would you love to buy today?"
               className="text-lg font-[400] h-10 p-3 rounded-[8px] w-full focus:outline-none border-none"
@@ -50,20 +65,25 @@ export const SearchComponent = () => {
         </HoverCardTrigger>
 
         {/* Modal (HoverCardContent) */}
-        <HoverCardContent
-          align="start"
-          sideOffset={4}
-          className={` max-w-[554px] rounded-b-[8px] rounded-t-none shadow-lg p-4 ${
-            theme === "dark" ? "bg-gray-900 text-white" : "bg-white text-black"
-          }`}
-        >
-          <p>This is the modal content.</p>
-          <p>This is the modal content.</p>
-          <p>This is the modal content.</p>
-          <p>This is the modal content.</p>
-          <p>This is the modal content.</p>
-          <p>This is the modal content.</p>
-        </HoverCardContent>
+        {/* {search && data && (
+          <HoverCardContent
+            align="start"
+            sideOffset={4}
+            className={`max-w-[554px] rounded-b-[8px] rounded-t-none shadow-lg p-4 ${
+              theme === "dark"
+                ? "bg-gray-900 text-white"
+                : "bg-white text-black"
+            }`}
+          >
+            {data?.data?.length > 0 ? (
+              data?.data?.map((product) => (
+                <p key={product.id}>{product.name}</p> // Display search results
+              ))
+            ) : (
+              <p>No products found.</p>
+            )}
+          </HoverCardContent>
+        )} */}
       </HoverCard>
     </div>
   );
