@@ -2,12 +2,13 @@ import { db } from "@/db/drizzle";
 import { orders } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { NextRequest, NextResponse } from "next/server";
+
+//post
 export async function POST(req: NextRequest) {
   try {
     const { items } = await req.json();
     const user = await currentUser();
     const { userId } = await auth();
-    console.log(items, userId);
     if (!userId || !user)
       return NextResponse.json(
         {
@@ -36,13 +37,60 @@ export async function POST(req: NextRequest) {
       );
 
     return NextResponse.json(
-      { success: true, order: newOrder[0] , message: `${user?.fullName} Order placed successfully`},
+      {
+        success: true,
+        order: newOrder[0],
+        message: `${user?.fullName} Order placed successfully😜`,
+      },
       { status: 200 }
     );
   } catch (error: unknown) {
     if (error instanceof Error)
       return NextResponse.json(
         { success: false, error: error.message },
+        { status: 500 }
+      );
+  }
+}
+
+//GETTING API FROM DB
+export async function GET() {
+  try {
+    const { userId } = await auth();
+    if (!userId || !userId)
+      return NextResponse.json(
+        {
+          message: "Unauthorized User",
+        },
+        {
+          status: 401,
+        }
+      );
+    const data = await db.select().from(orders);
+    console.log(data);
+    if (!data)
+      return NextResponse.json(
+        {
+          message: "No order Found",
+          success: false,
+        },
+        { status: 400 }
+      );
+    return NextResponse.json(
+      {
+        message: "Order fetched successfully",
+        success: true,
+        data,
+      },
+      { status: 200 }
+    );
+  } catch (error: unknown) {
+    if (error instanceof Error)
+      return NextResponse.json(
+        {
+          message: error.message,
+          success: false,
+        },
         { status: 500 }
       );
   }

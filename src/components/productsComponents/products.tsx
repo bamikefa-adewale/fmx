@@ -1,7 +1,7 @@
 "use client";
 
 import Container from "@/components/ui/Container";
-import Heading from "../../components/header/Heading";
+import Heading from "../header/Heading";
 import Card from "../ProductsCard";
 import { useAllProducts } from "@/app/hooks/useAllProducts";
 import CardSkeleton from "../CardSkeleton";

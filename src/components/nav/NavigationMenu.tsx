@@ -6,7 +6,6 @@ import {
   ShoppingBag,
   ShoppingCart,
   Bell,
-  User,
 } from "lucide-react";
 import { useCart } from "../../app/contexts/hook/useCart";
 import { useClerk, SignInButton, UserButton } from "@clerk/nextjs";

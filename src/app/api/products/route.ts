@@ -89,7 +89,6 @@ export async function GET(req: NextRequest) {
       query.where(ilike(products.name, `%${searchQuery}%`));
     }
     const data = await query;
-    console.log(data);
     if (!data || data.length === 0)
       return NextResponse.json(
         { message: "no products found...", success: false },

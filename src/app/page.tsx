@@ -1,9 +1,7 @@
 import CategoriesList from "@/components/category/CategoriesList";
 import MobileCategoryList from "@/components/category/MobileCategoryList";
-import Products from "@/components/productsCompoents/products";
+import Products from "@/components/productsComponents/products";
 // import Recommended from "@/components/recomended/Recommended";
-
-
 
 const Homepage = () => {
   return (
