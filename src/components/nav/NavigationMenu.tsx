@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useCart } from "../../app/contexts/hook/useCart";
 import { useClerk, SignInButton, UserButton } from "@clerk/nextjs";
+import { Button } from "../ui/button";
 
 const NavigationMenu = () => {
   const { totalItems, user } = useCart();
@@ -61,13 +62,13 @@ const NavigationMenu = () => {
             <UserButton />
           ) : (
             <SignInButton>
-              <button
+              <Button
                 onClick={() => openSignIn()}
                 type="button"
                 className="flex items-center cursor-pointer text-lg font-[400] dark:text-white gap-2"
               >
-                <User size={24} />
-              </button>
+                <p>Login</p>
+              </Button>
             </SignInButton>
           )}
         </li>
