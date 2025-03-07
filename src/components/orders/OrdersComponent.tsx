@@ -1,9 +1,18 @@
 "use client";
 import { useOrders } from "@/app/hooks/useOrders";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Image from "next/image";
+import dayjs from "dayjs";
 import React from "react";
+import Heading from "../header/Heading";
+import OrderStatus from "./OrderStatus";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
 
 interface Item {
   id: string;
@@ -25,52 +34,77 @@ interface Order {
 const OrdersComponent = () => {
   const { data: orders, isLoading, error } = useOrders();
 
-//   if (isLoading) return <Skeleton className="w-full h-40" />;
+  //   if (isLoading) return <Skeleton className="w-full h-40" />;
   if (error) return <p className="text-red-500">Error loading orders.</p>;
 
   return (
-    <div className="container mx-auto p-6">
-      <h2 className="text-2xl font-semibold mb-6">Your Orders</h2>
-      {orders?.length > 0 ? (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {orders?.map((order: Order) => (
-            <Card key={order.id} className="p-4 border rounded-lg shadow-md">
-              <CardHeader>
-                <CardTitle>Order ID: {order.id.slice(0, 8)}...</CardTitle>
-                <p className="text-sm text-gray-500">
-                  Status: <span className="font-medium">{order.status}</span>
-                </p>
-                <p className="text-sm text-gray-500">
-                  Placed on: {new Date(order.created_at).toLocaleDateString()}
-                </p>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {order.items?.map((item:Item) => (
-                    <div key={item.id} className="flex items-center gap-4">
-                      <Image
-                        src={item.images[0]}
-                        alt={item.name}
-                        width={60}
-                        height={60}
-                        className="rounded-lg object-cover"
-                      />
-                      <div>
-                        <p className="font-medium">{item.name}</p>
-                        <p className="text-gray-500">
-                          ${item.currentPrice} x {item.quantity}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+    <div className="bg-[#FCFFFC] rounded-lg">
+      <Heading title="Orders" className="text-2xl font-normal border-b p-5" />
+      <div className="px-4 md:px-10">
+        <OrderStatus />
+        {/* Scrollable Wrapper for Mobile */}
+        <div className="overflow-x-auto">
+          <Table className="min-w-[600px] w-full">
+            <TableCaption>A list of your recent orders.</TableCaption>
+            <TableHeader>
+              <TableRow className="text-sm md:text-lg font-semibold text-[#818B80]">
+                <TableHead>Order Number</TableHead>
+                <TableHead>Quantity</TableHead>
+                <TableHead>Date Ordered</TableHead>
+                <TableHead>Total Amount</TableHead>
+                <TableHead>Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {orders?.length > 0 ? (
+                orders?.map((order: Order) => {
+                  const totalAmount = order?.items.reduce(
+                    (sum, item) => sum + item?.currentPrice * item.quantity,
+                    0
+                  );
+                  const totalQuantity = order.items.reduce(
+                    (sum, item) => sum + item.quantity,
+                    0
+                  );
+
+                  return (
+                    <TableRow key={order.id} className="border-b">
+                      <TableCell className="text-[14px] md:text-[16px] px-2 md:px-4 py-2 md:py-3">
+                        {order.id.slice(0, 8)}...
+                      </TableCell>
+                      <TableCell className="px-2 md:px-4 py-2 md:py-3">
+                        {totalQuantity}
+                      </TableCell>
+                      <TableCell className="px-2 md:px-4 py-2 md:py-3">
+                        {dayjs(order.created_at)
+                          .format("D, MMM YY")
+                          .toLowerCase()}
+                      </TableCell>
+                      <TableCell className="px-2 md:px-4 py-2 md:py-3 font-medium">
+                        ${totalAmount?.toFixed(2)}
+                      </TableCell>
+                      <TableCell className="px-2 md:px-4 py-2 md:py-3">
+                        <span className="border border-[#35AC0B] text-[#35AC0B] px-2 py-1 rounded-md text-sm md:text-lg">
+                          View Details
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={5}
+                    className="text-center text-gray-500 py-4"
+                  >
+                    No orders found.
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
         </div>
-      ) : (
-        <p className="text-gray-500">No orders found.</p>
-      )}
+      </div>
     </div>
   );
 };
