@@ -1,5 +1,5 @@
 import OrderNavigation from "@/components/orders/OrderNavigation";
-import OrdersComponent from "@/components/orders/OrdersComponent";
+import Orders from "@/components/orders/Orders";
 import Container from "@/components/ui/Container";
 import React from "react";
 
@@ -10,7 +10,7 @@ const page = () => {
         <OrderNavigation />
         <div className=" ">
           {" "}
-          <OrdersComponent />
+          <Orders />
         </div>
       </div>
     </Container>

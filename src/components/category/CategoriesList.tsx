@@ -28,7 +28,7 @@ const CategoriesList = () => {
 
   return (
     <div
-      className={`transition-colors duration-300 ${
+      className={`transition-colors duration-300 hidden lg:block ${
         theme === "dark" ? "bg-black text-white" : "bg-[#FCFFFC] text-black"
       }`}
     >

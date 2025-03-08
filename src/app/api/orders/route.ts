@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-//GETTING API FROM DB
+//GETTING ORDER API FROM DB
 export async function GET() {
   try {
     const { userId } = await auth();
@@ -95,3 +95,8 @@ export async function GET() {
       );
   }
 }
+
+
+
+
+

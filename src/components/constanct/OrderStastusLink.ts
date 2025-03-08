@@ -2,7 +2,7 @@ export const statusLinks = [
   {
     name: "All Orders",
     path: "/all",
-    color: "#010400",
+    color: "#05376A",
   },
   {
     name: "Pending",
@@ -22,6 +22,6 @@ export const statusLinks = [
   {
     name: "Delivered",
     path: "/delivered",
-    color: "#010400",
+    color: "#2C9805",
   },
 ];

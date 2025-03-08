@@ -1,0 +1,132 @@
+"use client";
+import { useOrders } from "@/app/hooks/useOrders";
+import dayjs from "dayjs";
+import React from "react";
+import Heading from "../header/Heading";
+import OrderStatus from "./OrderStatus";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../ui/table";
+import { useRouter } from "next/navigation";
+
+interface Item {
+  id: string;
+  name: string;
+  currentPrice: number;
+  quantity: number;
+  images: string[];
+}
+
+interface Order {
+  id: string;
+  user_id: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+  items: Item[];
+}
+
+const SkeletonTableRow = () => (
+  <TableRow className="animate-pulse border-b">
+    {[...Array(5)].map((_, i) => (
+      <TableCell key={i} className="px-2 md:px-4 py-2 md:py-3">
+        <div className="h-4 w-full bg-gray-200 rounded-md"></div>
+      </TableCell>
+    ))}
+  </TableRow>
+);
+
+const Orders = () => {
+  const { data: orders, isLoading, error } = useOrders();
+  const router = useRouter();
+  const handleViewDetails = (ordersId: string) => {
+    router.push(`/orders/${ordersId}`);
+  };
+
+  if (error) return <p className="text-red-500">Error loading orders.</p>;
+
+  return (
+    <div className="bg-[#FCFFFC] rounded-lg">
+      <Heading title="Orders" className="text-2xl font-normal border-b p-5" />
+      <div className="px-4 md:px-10">
+        <OrderStatus />
+        <div className="overflow-x-auto">
+          <Table className="min-w-[600px] w-full">
+            <TableCaption>A list of your recent orders.</TableCaption>
+            <TableHeader>
+              <TableRow className="text-sm md:text-lg font-semibold text-[#818B80]">
+                <TableHead>Order Number</TableHead>
+                <TableHead>Quantity</TableHead>
+                <TableHead>Date Ordered</TableHead>
+                <TableHead>Total Amount</TableHead>
+                <TableHead>Action</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {isLoading
+                ? Array.from({ length: 5 }).map((_, index) => (
+                    <SkeletonTableRow key={index} />
+                  ))
+                : orders?.length > 0
+                ? orders.map((order: Order) => {
+                    const totalAmount = order.items.reduce(
+                      (sum, item) => sum + item.currentPrice * item.quantity,
+                      0
+                    );
+                    const totalQuantity = order.items.reduce(
+                      (sum, item) => sum + item.quantity,
+                      0
+                    );
+
+                    return (
+                      <TableRow key={order.id} className="border-b">
+                        <TableCell className="text-[14px] md:text-[16px] px-2 md:px-4 py-2 md:py-3">
+                          {order.id.slice(0, 8)}...
+                        </TableCell>
+                        <TableCell className="px-2 md:px-4 py-2 md:py-3">
+                          {totalQuantity} items
+                        </TableCell>
+                        <TableCell className="px-2 md:px-4 py-2 md:py-3">
+                          {dayjs(order.created_at)
+                            .format("D, MMM YY")
+                            .toLowerCase()}
+                        </TableCell>
+                        <TableCell className="px-2 md:px-4 py-2 md:py-3 font-medium">
+                          ${totalAmount?.toFixed(2)}
+                        </TableCell>
+                        <TableCell className="px-2 md:px-4 py-2 md:py-3">
+                          <button
+                            onClick={() => handleViewDetails(order.id)}
+                            className="border border-[#35AC0B] text-[#35AC0B] px-2 py-1 rounded-md text-sm md:text-lg"
+                          >
+                            View Details
+                          </button>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                : !isLoading && (
+                    <TableRow>
+                      <TableCell
+                        colSpan={5}
+                        className="text-center text-gray-500 py-4"
+                      >
+                        No orders found.
+                      </TableCell>
+                    </TableRow>
+                  )}
+            </TableBody>
+          </Table>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Orders;

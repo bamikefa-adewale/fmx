@@ -4,8 +4,8 @@ import { statusLinks } from "../constanct/OrderStastusLink";
 const OrderStatus = () => {
   const [activePath, setActivePath] = useState("/all");
   return (
-    <div className="py-3">
-      <div className="flex gap-10  border-b ">
+    <div className="py-3 overflow-x-auto">
+      <div className="flex gap-10  border-b  min-w-[600px] w-full">
         {statusLinks.map((status) => (
           <div
             key={status.path}
