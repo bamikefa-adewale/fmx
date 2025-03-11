@@ -8,7 +8,10 @@ export const useProductsByCategory = () => {
   };
   const { data, error, isPending } = useQuery({
     queryKey: ["product", id],
-    queryFn: () => getProductByCategory(id),
+    queryFn: () => {
+      if (!id) return null;
+      return getProductByCategory(id);
+    },
   });
   return { data, error, isPending };
 };

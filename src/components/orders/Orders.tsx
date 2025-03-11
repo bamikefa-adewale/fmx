@@ -1,5 +1,6 @@
 "use client";
 import { useOrders } from "@/app/hooks/useOrders";
+import { useUser } from "@clerk/nextjs";
 import dayjs from "dayjs";
 import React from "react";
 import Heading from "../header/Heading";
@@ -35,14 +36,20 @@ interface Order {
 
 const Orders = () => {
   const { data: orders, isLoading, error } = useOrders();
+  const { user } = useUser(); // Get logged-in user from Clerk
   const router = useRouter();
-  const handleViewDetails = (ordersId: string) => {
-    router.push(`/orders/${ordersId}`);
+
+  // Ensure user is authenticated before filtering orders
+  const userOrders =
+    orders?.filter((order: Order) => order.user_id === user?.id) || [];
+
+  const handleViewDetails = (orderId: string) => {
+    router.push(`/orders/${orderId}`);
   };
 
   if (error)
     return (
-      <p className="text-red-500  text-2xl justify-center text-center">
+      <p className="text-red-500 text-2xl justify-center text-center">
         Error loading orders.
       </p>
     );
@@ -69,8 +76,8 @@ const Orders = () => {
                 ? Array.from({ length: 5 }).map((_, index) => (
                     <SkeletonTableRow key={index} />
                   ))
-                : orders?.length > 0
-                ? orders.map((order: Order) => {
+                : userOrders.length > 0
+                ? userOrders.map((order: Order) => {
                     const totalAmount = order.items.reduce(
                       (sum, item) => sum + item.currentPrice * item.quantity,
                       0
