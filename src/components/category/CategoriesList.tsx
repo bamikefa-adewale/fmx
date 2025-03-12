@@ -33,62 +33,57 @@ const CategoriesList = () => {
       }`}
     >
       <Container>
-        <div className="my-20">
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 h-20">
-            <FilterButton />
+        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-10 h-20">
+          <FilterButton />
 
-            <div className="flex flex-wrap justify-center md:justify-between gap-4 md:gap-6 w-full overflow-x-auto">
-              {isPending ? (
-                <Skeleton className="h-[30px] w-[120px] rounded-lg" />
-              ) : (
-                <h4
-                  className={`cursor-pointer ${
-                    activeCategory === null ? "font-bold text-green-500" : ""
-                  }`}
-                  onClick={() => {
-                    setActiveCategory(null);
-                  }}
-                >
-                  All Category
-                </h4>
-              )}
+          <div className="flex flex-wrap justify-center md:justify-between gap-4 md:gap-6 w-full overflow-x-auto">
+            {isPending ? (
+              <Skeleton className="h-[30px] w-[120px] rounded-lg" />
+            ) : (
+              <h4
+                className={`cursor-pointer ${
+                  activeCategory === null ? "font-bold text-green-500" : ""
+                }`}
+                onClick={() => {
+                  setActiveCategory(null);
+                }}
+              >
+                All Category
+              </h4>
+            )}
 
-              {isPending
-                ? [...Array(itemsPerPage)].map((_, index) => (
-                    <Skeleton
-                      key={index}
-                      className="h-[30px] w-[120px] rounded-lg bg-gray-200"
+            {isPending
+              ? [...Array(itemsPerPage)].map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="h-[30px] w-[120px] rounded-lg bg-gray-200"
+                  />
+                ))
+              : categories
+                  ?.slice(startIndex, startIndex + itemsPerPage)
+                  .map((category) => (
+                    <CategoryItem
+                      key={category.id}
+                      name={category.name}
+                      isActive={category.id.toString() === activeCategory}
+                      onClick={() => {
+                        setActiveCategory(category.id.toString());
+                        router.push(`/category/${category.id}`);
+                      }}
                     />
-                  ))
-                : categories
-                    ?.slice(startIndex, startIndex + itemsPerPage)
-                    .map((category) => (
-                      <CategoryItem
-                        key={category.id}
-                        name={category.name}
-                        isActive={category.id.toString() === activeCategory}
-                        onClick={() => {
-                          setActiveCategory(category.id.toString());
-                          router.push(`/category/${category.id}`);
-                        }}
-                      />
-                    ))}
+                  ))}
 
-              <div className="flex items-center cursor-pointer gap-4">
-                <ChevronLeft
-                  onClick={() => setStartIndex((prev) => Math.max(0, prev - 1))}
-                />
-                <ChevronRight
-                  onClick={() =>
-                    setStartIndex((prev) =>
-                      Math.min(
-                        (categories?.length ?? 0) - itemsPerPage,
-                        prev + 1
-                      )
-                    )
-                  }
-                />
-              </div>
+            <div className="flex items-center cursor-pointer gap-4">
+              <ChevronLeft
+                onClick={() => setStartIndex((prev) => Math.max(0, prev - 1))}
+              />
+              <ChevronRight
+                onClick={() =>
+                  setStartIndex((prev) =>
+                    Math.min((categories?.length ?? 0) - itemsPerPage, prev + 1)
+                  )
+                }
+              />
             </div>
           </div>
         </div>

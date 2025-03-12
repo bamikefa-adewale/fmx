@@ -55,7 +55,7 @@ const Orders = () => {
     );
 
   return (
-    <div className="bg-[#FCFFFC] rounded-lg">
+    <div className="bg-[#FCFFFC] my-5 rounded-lg">
       <Heading title="Orders" className="text-2xl font-normal border-b p-5" />
       <div className="px-4 md:px-10">
         <OrderStatus />

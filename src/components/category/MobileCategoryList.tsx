@@ -28,7 +28,7 @@ const MobileCategoryList = () => {
 
   return (
     <Container>
-      <div className="">
+      <div className="block lg:hidden mt-20">
         <Select
           onValueChange={(value) => {
             if (value === "all") {

@@ -6,13 +6,8 @@ import React from "react";
 const page = () => {
   return (
     <Container>
-      <div className="my-20">
-        <OrderNavigation />
-        <div className=" ">
-          {" "}
-          <Orders />
-        </div>
-      </div>
+      <OrderNavigation />
+      <Orders />
     </Container>
   );
 };

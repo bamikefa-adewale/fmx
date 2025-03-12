@@ -29,9 +29,9 @@ const CartDetails = () => {
   );
   return (
     <Container>
-      <div className="flex flex-col md:flex-row gap-6">
+      <div className="flex flex-col md:flex-row gap-6 my-4">
         {/* Cart Items */}
-        <div className="my-20 flex-1 rounded-2xl lg:p-10 bg-[#FCFFFC]">
+        <div className="flex-1 rounded-2xl lg:p-10 bg-[#FCFFFC]">
           {carts?.length === 0 ? (
             <div>
               <EmptyCart />
@@ -138,7 +138,7 @@ const CartDetails = () => {
 
         {/* Summary Section */}
         {carts?.length > 0 && (
-          <div className=" lg:my-20 w-full md:w-1/3 rounded-2xl p-5 lg:p-10  bg-[#FCFFFC]">
+          <div className="w-full md:w-1/3 rounded-2xl p-5 lg:p-10  bg-[#FCFFFC]">
             {carts?.length > 0 && (
               <OrderSummary
                 totalCartPrice={totalCartPrice}

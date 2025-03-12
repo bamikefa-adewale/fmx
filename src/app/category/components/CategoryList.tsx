@@ -23,7 +23,7 @@ const CategoryList = () => {
     return <p className="text-red-500 text-center">Error: {error?.message}</p>;
   }
   return (
-    <section className="my-20 ">
+    <>
       <Container>
         <div className="my-10">
           <div className="my-10 flex items-center gap-2">
@@ -73,7 +73,7 @@ const CategoryList = () => {
           </div>
         </div>
       </Container>
-    </section>
+    </>
   );
 };
 

@@ -41,7 +41,7 @@ export default function RootLayout({
                 <div className="flex flex-col min-h-screen">
                   <Navbar />
                   {/* Main content with responsive padding */}
-                  <main className="flex-grow  py-6 sm:py-8">{children}</main>
+                  <main className="flex-grow pt-20">{children}</main>
                   <Footer />
                 </div>
                 <Toaster position="top-right" />

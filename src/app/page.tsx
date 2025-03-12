@@ -8,9 +8,7 @@ const Homepage = () => {
   return (
     <div className="mb-10">
       <CategoriesList />
-      <div className="block lg:hidden mt-20">
-        <MobileCategoryList />
-      </div>{" "}
+      <MobileCategoryList />
       <Suspense fallback={<p>Loading...</p>}>
         <Products />
       </Suspense>
