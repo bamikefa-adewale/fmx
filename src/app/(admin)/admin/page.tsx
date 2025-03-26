@@ -1,12 +1,14 @@
-import MainMsg from "@/components/message/MainMsg";
 import Container from "@/components/ui/Container";
 import React from "react";
+import DashBoard from "./__components/DashBoard";
 
 const page = () => {
   return (
     <>
       <Container>
-        <MainMsg />
+        <div>
+          <DashBoard />
+        </div>
       </Container>
     </>
   );

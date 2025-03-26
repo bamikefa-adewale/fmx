@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { SearchComponent } from "./SearchComponent";
 import { ModeToggle } from "@/components/ModeToggle";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Menu } from "lucide-react";
 import { useTheme } from "next-themes";
 
@@ -35,7 +35,9 @@ const Navbar = () => {
 
           {/* Search Bar */}
           <div className="hidden lg:block w-[25%]">
-            <SearchComponent />
+            <Suspense>
+              <SearchComponent />
+            </Suspense>
           </div>
 
           {/* Mobile Menu Toggle */}

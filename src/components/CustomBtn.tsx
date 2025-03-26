@@ -1,11 +1,11 @@
 import React from "react";
 
 type CustomBtnProps = {
-  label: string;
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; // Accept event parameter
   isDarkMode?: boolean;
   className?: string;
   disabled?: boolean;
+  label?: string;
 };
 
 const CustomBtn: React.FC<CustomBtnProps> = ({

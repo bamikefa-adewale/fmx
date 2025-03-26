@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "./globals.css";
-import Navbar from "../components/nav/Navbar";
-import Footer from "../components/footer/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { CartProvider } from "./contexts/CartContext";
 import { Toaster } from "react-hot-toast";
 import { ClerkProvider } from "@clerk/nextjs";
 import QueryProvider from "@/provider/QueryProvider";
+import LayoutWrapper from "@/components/defaultLayout/LayoutWrapper";
 
 const PoppinSans = Poppins({
   subsets: ["latin"],
@@ -39,10 +38,7 @@ export default function RootLayout({
                 disableTransitionOnChange
               >
                 <div className="flex flex-col min-h-screen">
-                  <Navbar />
-                  {/* Main content with responsive padding */}
-                  <main className="flex-grow pt-20">{children}</main>
-                  <Footer />
+                  <LayoutWrapper>{children}</LayoutWrapper>
                 </div>
                 <Toaster position="top-right" />
               </ThemeProvider>
